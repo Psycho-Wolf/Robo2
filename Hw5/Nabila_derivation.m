@@ -3,17 +3,19 @@ clc
 
 addpath('D:\GitHUB\Robo2Lab\UsefulFNs');
 
-syms theta1 theta2 dottheta1 dottheta2
-syms m1 m2 Gam1x Gam1y Gam1z Gam2x Gam2y Gam2z
-syms J1xx J1xy J1xz J1yy J1yz J1zz J2xx J2xy J2xz J2yy J2yz J2zz
-syms bx by bz L
+syms theta1 theta2 theta3 dottheta1 dottheta2 dottheta3
+syms m1 m2 m3 Gam1x Gam1y Gam1z Gam2x Gam2y Gam2z Gam3x Gam3y Gam3z
+syms J1xx J1xy J1xz J1yy J1yz J1zz J2xx J2xy J2xz J2yy J2yz J2zz J3xx J3xy J3xz J3yy J3yz J3zz
+syms bx by bz L1 L2 L3
 
 gamma=[theta1;theta2];
 dotgamma=[dottheta1;dottheta2];
 Gam1=[Gam1x;Gam1y;Gam1z];
 Gam2=[Gam2x;Gam2y;Gam2z];
+Gam3=[Gam3x;Gam3y;Gam3z];
 J1=[J1xx J1xy J1xz;J1xy J1yy J1yz;J1xz J1yz J1zz];
 J2=[J2xx J2xy J2xz;J2xy J2yy J2yz;J2xz J2yz J2zz];
+J3=[J3xx J3xy J3xz;J3xy J3yy J3yz;J3xz J3yz J3zz];
 
 %Define orientation and rate of change of each frame
 T1 = rotzRad(theta1);
@@ -32,8 +34,8 @@ S=T3.'*dotT3;
 w3=[S(3,2);S(1,3);S(2,1)];
 
 r1=[bx;by;bz];
-r2=r1+T1*[0;L;0];
-r3=r2+T2*[0;L;0];
+r2=r1+T1*[0;L1;0];
+r3=r2+T2*[0;L2;0];
 
 dotr1=jacobian(r1,gamma)*dotgamma;
 dotr2=jacobian(r2,gamma)*dotgamma;
@@ -48,5 +50,5 @@ K=K1+K2+K3;
 H=jacobian(jacobian(K,dotgamma).',dotgamma);
 d=jacobian(jacobian(K,dotgamma).',gamma)*dotgamma - jacobian(K,gamma).';
 
-H=simplify(H)
-d=simplify(d)
+% H=simplify(H)
+% d=simplify(d)
