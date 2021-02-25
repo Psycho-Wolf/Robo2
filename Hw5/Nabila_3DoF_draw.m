@@ -1,5 +1,8 @@
 function Nabila_3DoF_draw(gamma)
 
+
+addpath('D:\GitHUB\Robo2Lab\UsefulFNs');
+
 theta1 = gamma(1);
 theta2 = gamma(2);
 theta3 = gamma(3);
@@ -16,10 +19,10 @@ patch('Faces',Floor_f,'Vertices',Floor_v,'EdgeColor','None','FaceColor',[0 0 .8]
 hold on
 set(gcf,'Position',[50, 50, 950, 900])
 
-[Base,Base_f,n,c,stltitle]   = stlread('Nabila_3DoF_Base.stl');
-[Link1,Link1_f,n,c,stltitle] = stlread('Nabila_3DoF_Link1.stl');
-[Link2,Link2_f,n,c,stltitle] = stlread('Nabila_3DoF_Link2.stl');
-[Link3,Link3_f,n,c,stltitle] = stlread('Nabila_3DoF_Link3.stl');
+[Base,Base_f,n,c]   = stlread('Nabila_3DoF_Base.STL');
+[Link1,Link1_f,n,c] = stlread('Nabila_3DoF_Link1.STL');
+[Link2,Link2_f,n,c] = stlread('Nabila_3DoF_Link2.STL');
+[Link3,Link3_f,n,c] = stlread('Nabila_3DoF_Link3.STL');
 
 rBfromI = [0;0;0];
 r1fromB = [0;0;0.17];
