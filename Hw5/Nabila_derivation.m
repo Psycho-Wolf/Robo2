@@ -37,6 +37,8 @@ r3=r2+T2*[0;L;0];
 
 dotr1=jacobian(r1,gamma)*dotgamma;
 dotr2=jacobian(r2,gamma)*dotgamma;
+dotr3=jacobian(r3,gamma)*dotgamma;
+
 
 K1=(1/2)*m1*dotr1.'*dotr1 + dotr1.'*T1*cross(w1,Gam1) + (1/2)*w1.'*J1*w1;
 K2=(1/2)*m2*dotr2.'*dotr2 + dotr2.'*T2*cross(w2,Gam2) + (1/2)*w2.'*J2*w2;
