@@ -35,6 +35,6 @@ d = [J3yz*dottheta2^2*cos(theta2 - theta3) - J2xz*dottheta2^2*sin(theta2) - J2yz
  
 
 
-bdot(1:2)=b(3:4);
-bdot(3:4)=H\(F-d); 
+bdot(1:3)=b(4:6);
+bdot(4:6)=H\(F-d); 
 end
