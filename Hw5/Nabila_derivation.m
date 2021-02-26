@@ -1,15 +1,13 @@
 clear
 clc
 
-addpath('D:\GitHUB\Robo2Lab\UsefulFNs');
-
 syms theta1 theta2 theta3 dottheta1 dottheta2 dottheta3
 syms m1 m2 m3 Gam1x Gam1y Gam1z Gam2x Gam2y Gam2z Gam3x Gam3y Gam3z
 syms J1xx J1xy J1xz J1yy J1yz J1zz J2xx J2xy J2xz J2yy J2yz J2zz J3xx J3xy J3xz J3yy J3yz J3zz
 syms bx by bz L1y L1z L2y L2z
 
-gamma=[theta1;theta2];
-dotgamma=[dottheta1;dottheta2];
+gamma=[theta1;theta2;theta3];
+dotgamma=[dottheta1;dottheta2;dottheta3];
 Gam1=[Gam1x;Gam1y;Gam1z];
 Gam2=[Gam2x;Gam2y;Gam2z];
 Gam3=[Gam3x;Gam3y;Gam3z];
@@ -33,22 +31,18 @@ w2=[S(3,2);S(1,3);S(2,1)];
 S=T3.'*dotT3;
 w3=[S(3,2);S(1,3);S(2,1)];
 
-% r1=[bx;by;bz];
-% r2=r1+T1*[0;L1y;L1z];
-% r3=r2+T2*[0;L2y;L2z];
-rBfromI = [0;0;0];
-r1fromB = [0;0;0.17];
-r2from1 = [0;0.11;.13];
-r3from2 = [0;0.49;.02];
-
-% T1 = rotzRad(theta1);
-% T2=T1*rotzRad(-pi/2)*rotyRad(-pi/2)*rotzRad(theta2);
-% T3=T2*rotyRad(pi)*rotzRad(theta3);
-
-rB=rBfromI;
-r1=rB+r1fromB;
-r2=r1+T1*r2from1;
-r3=r2+T2*r3from2;
+r1=[bx;by;bz];
+r2=r1+T1*[0;L1y;L1z];
+r3=r2+T2*[0;L2y;L2z];
+% rBfromI = [0;0;0];
+% r1fromB = [0;0;0.17];
+% r2from1 = [0;0.11;.13];
+% r3from2 = [0;0.49;.02];
+% 
+% rB=rBfromI;
+% r1=rB+r1fromB;
+% r2=r1+T1*r2from1;
+% r3=r2+T2*r3from2;
 
 dotr1=jacobian(r1,gamma)*dotgamma;
 dotr2=jacobian(r2,gamma)*dotgamma;
