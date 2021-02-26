@@ -17,8 +17,8 @@ J3=[J3xx J3xy J3xz;J3xy J3yy J3yz;J3xz J3yz J3zz];
 
 %Define orientation and rate of change of each frame
 T1 = rotzRad(theta1);
-T2=T1*rotzRad(-pi/2)*rotyRad(-pi/2)*rotzRad(theta2);
-T3=T2*rotyRad(pi)*rotzRad(theta3);
+T2=T1*rotzRad(-sym(pi)/2)*rotyRad(-sym(pi)/2)*rotzRad(theta2);
+T3=T2*rotyRad(sym(pi))*rotzRad(theta3);
 
 dotT1=[jacobian(T1(:,1),gamma)*dotgamma,jacobian(T1(:,2),gamma)*dotgamma,jacobian(T1(:,3),gamma)*dotgamma];
 dotT2=[jacobian(T2(:,1),gamma)*dotgamma,jacobian(T2(:,2),gamma)*dotgamma,jacobian(T2(:,3),gamma)*dotgamma];
@@ -57,5 +57,5 @@ K=K1+K2+K3;
 H=jacobian(jacobian(K,dotgamma).',dotgamma);
 d=jacobian(jacobian(K,dotgamma).',gamma)*dotgamma - jacobian(K,gamma).';
 
-% H=simplify(H)
-% d=simplify(d)
+H=simplify(H)
+d=simplify(d)
