@@ -54,9 +54,9 @@ K2=(1/2)*m2*dotr2.'*dotr2 + dotr2.'*T2*cross(w2,Gam2) + (1/2)*w2.'*J2*w2;
 K3=(1/2)*m3*dotr3.'*dotr3 + dotr3.'*T3*cross(w3,Gam3) + (1/2)*w3.'*J3*w3;
 K=K1+K2+K3;
 
-U1 = m1*r1 + T1*Gam1;
-U2 = m2*r2 + T2*Gam2;
-U3 = m3*r3 + T3*Gam3;
+U1 = m1*
+U2
+U3
 U = U1+U2+U3;
 
 
