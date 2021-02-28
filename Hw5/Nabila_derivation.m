@@ -6,6 +6,8 @@ syms m1 m2 m3 Gam1x Gam1y Gam1z Gam2x Gam2y Gam2z Gam3x Gam3y Gam3z
 syms J1xx J1xy J1xz J1yy J1yz J1zz J2xx J2xy J2xz J2yy J2yz J2zz J3xx J3xy J3xz J3yy J3yz J3zz
 syms bx by bz L1y L1z L2y L2z
 
+g = -9.81;
+
 gamma=[theta1;theta2;theta3];
 dotgamma=[dottheta1;dottheta2;dottheta3];
 Gam1=[Gam1x;Gam1y;Gam1z];
@@ -54,17 +56,21 @@ K2=(1/2)*m2*dotr2.'*dotr2 + dotr2.'*T2*cross(w2,Gam2) + (1/2)*w2.'*J2*w2;
 K3=(1/2)*m3*dotr3.'*dotr3 + dotr3.'*T3*cross(w3,Gam3) + (1/2)*w3.'*J3*w3;
 K=K1+K2+K3;
 
-U1 = m1*r1 + T1*Gam1;
-U2 = m2*r2 + T2*Gam2;
-U3 = m3*r3 + T3*Gam3;
+temp = m1*r1 + T1*Gam1;
+U1 = -g*temp(3);
+temp = m2*r2 + T2*Gam2;
+U2 = -g*temp(3);
+temp = m3*r3 + T3*Gam3;
+U3 = -g*temp(3);
 U = U1+U2+U3;
 
 
 % H=jacobian(jacobian(K,dotgamma).',dotgamma);
-% d=jacobian(jacobian(K,dotgamma).',gamma)*dotgamma - jacobian(K,gamma).';
-% 
+d=jacobian(jacobian(K,dotgamma).',gamma)*dotgamma - jacobian(K,gamma).';
+
 % H=simplify(H)
-% d=simplify(d)
+d=simplify(d)
 
 
 G = jacobian(U,gamma).';
+simplify(G)
