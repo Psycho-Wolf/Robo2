@@ -39,6 +39,14 @@ G = [                                                                           
  
 
 
+                                                                                       
+                                                                                       
+Cf = 5;
+Cmat = Cf*eyes(3)
+C = 
+Bf = 10;
+B
+
 bdot(1:3)=b(4:6);
 bdot(4:6)=H\(F-d-G); 
 end

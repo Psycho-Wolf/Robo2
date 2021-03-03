@@ -66,10 +66,10 @@ U = U1+U2+U3;
 
 
 % H=jacobian(jacobian(K,dotgamma).',dotgamma);
-d=jacobian(jacobian(K,dotgamma).',gamma)*dotgamma - jacobian(K,gamma).';
-
-% H=simplify(H)
-d=simplify(d)
+% d=jacobian(jacobian(K,dotgamma).',gamma)*dotgamma - jacobian(K,gamma).';
+% 
+% % H=simplify(H)
+% d=simplify(d)
 
 
 G = jacobian(U,gamma).';
