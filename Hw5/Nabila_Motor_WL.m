@@ -22,9 +22,9 @@ function bdot = Nabila_Motor_WL(b,V)
                                                                                                                                                                                                                                                                                                                                                                                   0.0647*dottheta1^2*sin(theta3) + 0.1293*dottheta2^2*sin(theta3) - 0.0647*dottheta1^2*sin(2*theta2 - theta3) - 0.0260*dottheta1^2*sin(2*theta2 - 2*theta3)];
     G = [0;- 2.5889*cos(theta2 - 1*theta3) - 27.9322*cos(theta2);2.5889*cos(theta2 - 1*theta3)];
 
-    N = [24;75;24]; %Fixed
+    N = [24;75;24];
     eata = [.81;.73;.81];
-    K = diag([.0232; .0234; .0196].*N);  %Fixed
+    K = diag([.0232; .0234; .0196].*N); 
     Ra = diag([1.26; 1.63; 2.99]);
     Ja = [(4.2*(10^-6));(3.2*(10^-6));(1.9*(10^-6))];
     L = diag([1.0;1.3;1.8]);
