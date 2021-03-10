@@ -1,4 +1,4 @@
-function bdot = Nabila(b,F)
+function bdot = ModNabila(b,F)
 
 bdot = zeros(6,1);
 theta1 = b(1);
