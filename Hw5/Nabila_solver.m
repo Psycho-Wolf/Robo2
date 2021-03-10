@@ -14,9 +14,10 @@ b(:,1) =   [0;...
             0;...
             0];
 
- F(1,:) = 0*ones(1,length(t));
- F(2,:) = 0*ones(1,length(t));
- F(3,:) = 0*ones(1,length(t));
+ F(1,:) = 10*ones(1,length(t));
+ F(2,:) = 10*ones(1,length(t));
+ F(3,:) = 10*ones(1,length(t));
+
 
  for i = 1:length(t) - 1
      k1=Nabila(b(:,i),F(:,i));
