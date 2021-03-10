@@ -19,10 +19,10 @@ F(3,:)=.005*ones(1,length(t));
 
 %---Solve Equations of Motion---
 for i=1:length(t)-1
- k1=Nabila(b(:,i),F(:,i));
- k2=Nabila(b(:,i)+k1*h/2,F(:,i));
- k3=Nabila(b(:,i)+k2*h/2,F(:,i));
- k4=Nabila(b(:,i)+k3*h,F(:,i));
+ k1=ModNabila(b(:,i),F(:,i));
+ k2=ModNabila(b(:,i)+k1*h/2,F(:,i));
+ k3=ModNabila(b(:,i)+k2*h/2,F(:,i));
+ k4=ModNabila(b(:,i)+k3*h,F(:,i));
  b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 %---Data Plotting---
