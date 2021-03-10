@@ -4,14 +4,17 @@ close all
 clc
 h=0.001; %simulation time step
 t=0:h:5; %time array
-b=zeros(6,length(t)); %initialize state vector
+b=zeros(9,length(t)); %initialize state vector
 V=zeros(3,length(t)); %initialize generalized force vector
-b(:,1)=[0;... %initial theta1
- 0;... %initial theta2
- 0;...%initial theta3
- 0;... %initial dottheta1
- 0;... %initial dottheta2
- 0];%initial dottheta3
+b(:,1)=[ 0;...  %initial theta1
+         0;...  %initial theta2
+         0;...  %initial theta3
+         0;...  %initial dottheta1
+         0;...  %initial dottheta2
+         0;...  %initial dottheta3
+         0.1;...  %initial i1
+         0.1;...  %initial i2
+         0.1];    %initial i3
 
 V(1,:)=12*ones(1,length(t)); %0.01 nm torque applied to link 1
 V(2,:)=12*ones(1,length(t)); %0.005 nm torque applied to link 2
@@ -19,10 +22,10 @@ V(3,:)=12*ones(1,length(t));
 
 %---Solve Equations of Motion---
 for i=1:length(t)-1
- k1=Nabila_Motor_woL(b(:,i),V(:,i));
- k2=Nabila_Motor_woL(b(:,i)+k1*h/2,V(:,i));
- k3=Nabila_Motor_woL(b(:,i)+k2*h/2,V(:,i));
- k4=Nabila_Motor_woL(b(:,i)+k3*h,V(:,i));
+ k1=Nabila_Motor_WL(b(:,i),V(:,i));
+ k2=Nabila_Motor_WL(b(:,i)+k1*h/2,V(:,i));
+ k3=Nabila_Motor_WL(b(:,i)+k2*h/2,V(:,i));
+ k4=Nabila_Motor_WL(b(:,i)+k3*h,V(:,i));
  b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 %---Data Plotting---
