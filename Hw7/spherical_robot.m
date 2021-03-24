@@ -58,4 +58,4 @@ function bdot = spherical_robot(b,V,F)
     C = [0.8*sign(dottheta1); 0.8*sign(dottheta2); 5*sign(dottheta3)];
     
 bdot(1:3)=b(4:6);
-bdot(4:6) = (Rm*H+Jm)\(V -Rm*d - Rm*G -Bm -Rm*B -Cm -Rm*C);
+bdot(4:6) = (Rm*H+Jm)\(V -Rm*d - Rm*G -Bm -Rm*B -Cm -Rm*C - Rm*geoJ3.'*[cross(r3cm,IT3*F),F]);
