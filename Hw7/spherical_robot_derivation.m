@@ -63,9 +63,6 @@ H=jacobian(jacobian(K,dotgamma).',dotgamma);
 d=jacobian(jacobian(K,dotgamma).',gamma)*dotgamma - jacobian(K,gamma).';
 G = jacobian(U,gamma).';
 
-% turret
-
-
 H = simplify(H)
 d = simplify(d)
 G = simplify(G)
