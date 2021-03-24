@@ -73,4 +73,4 @@ U = U1+U2+U3;
 
 
 G = jacobian(U,gamma).';
-simplify(G)
+G = vpa(G)
