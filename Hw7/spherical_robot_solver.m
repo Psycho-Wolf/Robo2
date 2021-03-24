@@ -5,46 +5,29 @@ clc
 h=0.001;
 t=0:h:5;
 
-b=zeros(6,length(t)); 
-V=zeros(3,length(t));
+b = zeros(6,length(t)); 
+V = zeros(3,length(t));
+F = zeros(3,length(t));
+
 b(:,1)=[ 0;...  
          0;...  
          0;...  
          0;...  
          0;...  
          0];
-
-c=zeros(9,length(t)); 
-c(:,1)=[ 0;...  
-         0;...  
-         0;...  
-         0;...  
-         0;...  
-         0;...  
-         0;...  
-         0;...  
-         0];    
-
 V(1,:)=12*ones(1,length(t)); 
 V(2,:)=12*ones(1,length(t));
 V(3,:)=12*ones(1,length(t));
 
 
 for i=1:length(t)-1
- k1=WorkingNabila_Motor_woL(b(:,i),V(:,i));
- k2=WorkingNabila_Motor_woL(b(:,i)+k1*h/2,V(:,i));
- k3=WorkingNabila_Motor_woL(b(:,i)+k2*h/2,V(:,i));
- k4=WorkingNabila_Motor_woL(b(:,i)+k3*h,V(:,i));
+ k1=spherical_robot(b(:,i),V(:,i),F(:,i));
+ k2=spherical_robot(b(:,i)+k1*h/2,V(:,i),F(:,i));
+ k3=spherical_robot(b(:,i)+k2*h/2,V(:,i),F(:,i));
+ k4=spherical_robot(b(:,i)+k3*h,V(:,i),F(:,i));
  b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-for i=1:length(t)-1
- k1=WorkingNabila_Motor_wL(c(:,i),V(:,i));
- k2=WorkingNabila_Motor_wL(c(:,i)+k1*h/2,V(:,i));
- k3=WorkingNabila_Motor_wL(c(:,i)+k2*h/2,V(:,i));
- k4=WorkingNabila_Motor_wL(c(:,i)+k3*h,V(:,i));
- c(:,i+1)=c(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
-end
 
 figure
 subplot(3,2,1)

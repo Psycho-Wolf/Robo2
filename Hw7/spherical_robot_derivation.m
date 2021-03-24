@@ -1,13 +1,13 @@
 clear
 clc
 
-syms theta1 theta2 d dottheta1 dottheta2 ddot
+syms theta1 theta2 d3 dottheta1 dottheta2 d3dot
 syms m1 m2 m3 Gam1x Gam1y Gam1z Gam2x Gam2y Gam2z Gam3x Gam3y Gam3z
 syms J1xx J1xy J1xz J1yy J1yz J1zz J2xx J2xy J2xz J2yy J2yz J2zz J3xx J3xy J3xz J3yy J3yz J3zz
 g = -9.81;
 
-gamma=[theta1;theta2;d];
-dotgamma=[dottheta1;dottheta2;ddot];
+gamma=[theta1;theta2;d3];
+dotgamma=[dottheta1;dottheta2;d3dot];
 Gam1=[Gam1x;Gam1y;Gam1z];
 Gam2=[Gam2x;Gam2y;Gam2z];
 Gam3=[Gam3x;Gam3y;Gam3z];
@@ -33,7 +33,7 @@ w3=[S(3,2);S(1,3);S(2,1)];
 rBfromI = [0;0;0];
 r1fromB = [0;0;.2];
 r2from1 = [0;0;0.08154018];
-r3from2 = [d;0;0];
+r3from2 = [d3;0;0];
 
 rB = rBfromI;
 r1 = rB + r1fromB;
