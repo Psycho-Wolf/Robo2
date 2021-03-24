@@ -1,14 +1,14 @@
-function bdot = Nabila_Motor_wL(b,V)
+function bdot = WorkingNabila_Motor_wL(b,V)
 
-    bdot = zeros(6,1);
+    bdot = zeros(9,1);
     theta1 = b(1);
     theta2 = b(2);
     theta3 = b(3);
     dottheta1 = b(4);
     dottheta2 = b(5);
     dottheta3 = b(6);
-    dotgamma = b(4:6);
-    I = b(7:9);
+    dotgamma = [b(4);b(5);b(6)];
+    I = [b(7);b(8);b(9)];
     
     B = 1.5;
     C = 2.3;
@@ -25,7 +25,7 @@ function bdot = Nabila_Motor_wL(b,V)
     n = [.81;.73;.81];
     K = [.0182; .0188; .0156];
     Ra = [0.830; 1.08; 1.93];
-    L = [0.63*10^-3; 0.84*10^-3; 1.2*10^-3];
+    L = diag([0.63*10^-3; 0.84*10^-3; 1.2*10^-3]);
     Ja = [(4.2*(10^-6));(3.2*(10^-6));(1.9*(10^-6))];
     
     Ba = diag([2.6*10^-6;2.3*10^-6;1.8*10^-6]);
@@ -47,6 +47,8 @@ function bdot = Nabila_Motor_wL(b,V)
     B = [1.5*dottheta1; 1.5*dottheta2; 1.5*dottheta3];
     C = [2.3*sign(dottheta1); 2.3*sign(dottheta2); 2.3*sign(dottheta3)];
     bdot(1:3)=b(4:6);
-    bdot(4:6) = (Rm*H+Jm)\(V -Rm*d - Rm*G -Bm -Rm*B -Cm -Rm*C);
+    bdot(4:6) = (Rm*H+Jm)\(V - Rm*d - Rm*G - Bm - Rm*B - Cm -Rm*C);
+%     bdot(4:6) = (Ri*H+Ji)\();
+
     bdot(7:9) = L\(V-R*I-kp*dotgamma);
 end

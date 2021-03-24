@@ -21,9 +21,9 @@ c(:,1)=[ 0;...
          0;...  
          0;...  
          0;...  
-         0.1;...  
-         0.1;...  
-         0.1];    
+         0;...  
+         0;...  
+         0];    
 
 V(1,:)=12*ones(1,length(t)); 
 V(2,:)=12*ones(1,length(t));
@@ -69,17 +69,27 @@ xlabel('t (s)')
 ylabel('\theta_3 (rad)')
 
 figure
-v=VideoWriter('Nabila_HW6.avi');
-set(v,'FrameRate',20); 
-open(v);
-for i=1:round(1/(20*h)):length(t)
- Nabila_3DoF_draw(b(:,i));
- drawnow
- frame=getframe(gcf);
- writeVideo(v,frame);
-    if i ~= length(t)
-        cla(gca)
-    end 
-end
+subplot(3,1,1)
+plot(t,c(7,:))
 
-close(v);
+subplot(3,1,2)
+plot(t,c(8,:))
+
+subplot(3,1,3)
+plot(t,c(9,:))
+
+% figure
+% v=VideoWriter('Nabila_HW6.avi');
+% set(v,'FrameRate',20); 
+% open(v);
+% for i=1:round(1/(20*h)):length(t)
+%  Nabila_3DoF_draw(b(:,i));
+%  drawnow
+%  frame=getframe(gcf);
+%  writeVideo(v,frame);
+%     if i ~= length(t)
+%         cla(gca)
+%     end 
+% end
+% 
+% close(v);
