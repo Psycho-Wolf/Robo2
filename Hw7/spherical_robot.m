@@ -57,7 +57,7 @@ function bdot = spherical_robot(b,V,F)
     Ca = diag([.0042;.0042;.0042]);
     
     Rm = diag(Ra./(K.*n.*N));
-    Bm = diag((((Ra.*Ba+K.^2)./K).*N).*dotgamma);
+    Bm = (((Ra.*Ba+K.^2)./K).*N);
     Cm = (Ra.*Ca)./K;
     Jm = diag((Ra.*Ja.*N)./K);
     
@@ -66,7 +66,7 @@ function bdot = spherical_robot(b,V,F)
     
 bdot(1:3)=b(4:6);
 % temp = (Rm*H+Jm)\(V -Rm*d - Rm*G -Bm -Rm*B -Cm -Rm*C - Rm*geoJ3.'*[cross(r3cm,IT3.'*F);F])
-temp1 = (Rm*H+Jm)
-temp2 = (V -Rm*d - Rm*G -Bm -Rm*B -Cm -Rm*C - Rm*geoJ3.'*[cross(r3cm,IT3.'*F);F])
+temp1 = (Rm*H+Jm);
+temp2 = (V -Rm*d - Rm*G - (Bm+Rm*B)*bdot(1:3) -(Cm+Rm*C)*sign(bdot(1:3)) - Rm*geoJ3.'*[cross(r3cm,IT3.'*F);F]);
 temp = temp1\temp2;
 bdot(4:6) = temp;
