@@ -49,7 +49,7 @@ xlabel('t (s)')
 ylabel('\d (m)')
 
 figure
-v=VideoWriter('POS.avi');
+v=VideoWriter('hw7.avi');
 set(v,'FrameRate',20); 
 open(v);
 for i=1:round(1/(20*h)):length(t)

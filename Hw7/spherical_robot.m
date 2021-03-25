@@ -8,7 +8,7 @@ function bdot = spherical_robot(b,V,F)
     dottheta2 = b(5);
     d3dot = b(6);
     
-    dotgamma = b(4:6);
+%     dotgamma = b(4:6);
     
     m1 = 1.37080227;
     r1cm = [0;-0.02570462;0.05114915];
@@ -16,7 +16,8 @@ function bdot = spherical_robot(b,V,F)
     r2cm = [-0.05449109;.02681265;0];
     m3 = .77189259;
     r3cm = [0.00001023;0.00115005;0.00081791];
-
+    
+    r3E = [.375 0 0].';
     Gam1x = m1*r1cm(1); Gam1y = m1*r1cm(2); Gam1z = m1*r1cm(3);
     Gam2x = m2*r2cm(1); Gam2y = m2*r2cm(2); Gam2z = m2*r2cm(3);
     Gam3x = m3*r3cm(1); Gam3y = m3*r3cm(2); Gam3z = m3*r3cm(3);
@@ -46,27 +47,31 @@ function bdot = spherical_robot(b,V,F)
     G =   [                                                                                                                                           0;
  - (981*Gam2x*cos(theta2))/100 - (981*Gam3x*cos(theta2))/100 - (981*Gam2z*sin(theta2))/100 - (981*Gam3z*sin(theta2))/100 - (981*d3*m3*cos(theta2))/100;
                                                                                                                              -(981*m3*sin(theta2))/100];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-    N = [75;75;75*20];
+    N = [75;75;75];
     
-    n = [.73;.73;1];
+    n = [.73;.73;.73];
     K = [.0182; .0182; .0182];
     Ra = [0.830; 0.830; 0.830];
     Ja = [(4.2*(10^-6));(4.2*(10^-6));(4.2*(10^-6))];
     
-    Ba = diag([2.6*10^-6;2.6*10^-6;2.6*10^-6.']);
+    Ba = diag([2.6*10^-6;2.6*10^-6;2.6*10^-6]);
     Ca = diag([.0042;.0042;.0042]);
     
-    Rm = diag(Ra./(K.*n.*N));
-    Bm = (((Ra.*Ba+K.^2)./K).*N);
-    Cm = (Ra.*Ca)./K;
-    Jm = diag((Ra.*Ja.*N)./K);
+    Rm = diag([(Ra(1)/((K(1)*n(1)*N(1))));
+                (Ra(2)/((K(2)*n(2)*N(2))));
+                (Ra(3)/((K(3)*n(3)*N(3))))]);
+    Bm = diag([((Ra(1)*Ba(1)+K(1)^2)/K(1))*N(1);
+        ((Ra(2)*Ba(2)+K(2)^2)/K(2))*N(2);
+        ((Ra(3)*Ba(3)+K(3)^3)/K(3))*N(3)]);
+    Cm = diag([(Ra(1)*Ca(1))/K(1);
+                (Ra(2)*Ca(2))/K(2);
+                (Ra(3)*Ca(3))/K(3)]);
+    Jm = diag([(Ra(1)*Ja(1)*N(1))/K(1);
+                (Ra(2)*Ja(2)*N(2))/K(2)
+                (Ra(3)*Ja(1)*N(3))/K(3)]);
     
-    B = [0.1*dottheta1; 0.1*dottheta2; 20*d3dot];
-    C = [0.8*sign(dottheta1); 0.8*sign(dottheta2); 5*sign(d3dot)];
+    B = diag([0.1; 0.1; 20]);
+    C = diag([0.8; 0.8; 5]);
     
 bdot(1:3)=b(4:6);
-% temp = (Rm*H+Jm)\(V -Rm*d - Rm*G -Bm -Rm*B -Cm -Rm*C - Rm*geoJ3.'*[cross(r3cm,IT3.'*F);F])
-temp1 = (Rm*H+Jm);
-temp2 = (V -Rm*d - Rm*G - (Bm+Rm*B)*bdot(1:3) -(Cm+Rm*C)*sign(bdot(1:3)) - Rm*geoJ3.'*[cross(r3cm,IT3.'*F);F]);
-temp = temp1\temp2;
-bdot(4:6) = temp;
+bdot(4:6) =(Rm*H+Jm)\(V -Rm*d - Rm*G - (Bm+Rm*B)*b(4:6) -(Cm+Rm*C)*sign(b(4:6)) + Rm*geoJ3.'*[cross(r3E,IT3.'*F);F]);
