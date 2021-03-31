@@ -47,19 +47,19 @@ subplot(3,2,5)
 plot(t,b(3,:),'r')
 xlabel('t (s)')
 ylabel('\d (m)')
-
-figure
-v=VideoWriter('hw7.avi');
-set(v,'FrameRate',20); 
-open(v);
-for i=1:round(1/(20*h)):length(t)
- spherical_robot_draw(b(:,i));
- drawnow
- frame=getframe(gcf);
- writeVideo(v,frame);
-    if i ~= length(t)
-        cla(gca)
-    end 
-end
-
-close(v);
+% 
+% figure
+% v=VideoWriter('hw7.avi');
+% set(v,'FrameRate',20); 
+% open(v);
+% for i=1:round(1/(20*h)):length(t)
+%  spherical_robot_draw(b(:,i));
+%  drawnow
+%  frame=getframe(gcf);
+%  writeVideo(v,frame);
+%     if i ~= length(t)
+%         cla(gca)
+%     end 
+% end
+% 
+% close(v);
