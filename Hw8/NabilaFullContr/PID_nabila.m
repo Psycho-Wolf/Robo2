@@ -1,6 +1,6 @@
 function V = PID_nabila(e,edot,eint)
 
-    K = 55;
+    K = 300;
     
     Kp = (K*.6)*eye(3);
     Kd = (K*.075)*eye(3);

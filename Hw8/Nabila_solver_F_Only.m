@@ -4,8 +4,8 @@
     clc
 
     %% Initilizations
-
-    h=0.001;
+addpath('D:\GitHUB\Robo2\Hw8\NabilaForceOnlyContr');
+h =0.001;
 Ts = .005;
 t=0:h:5;
 e_last = [0;0;0];
@@ -25,11 +25,6 @@ V(1,:)=12*ones(1,length(t));
 V(2,:)=12*ones(1,length(t));
 V(3,:)=12*ones(1,length(t));
 
-%% Controllers Inits
-% Kp = 10*eye(3);
-% Kd = 0*eye(3);
-% Ki = diag([1;1;1]);
-
 %% Controller and RK
 T_last = -Ts;
 for i=1:length(t)-1
@@ -37,7 +32,7 @@ for i=1:length(t)-1
         e = gammad - b(1:3,i);
         edot = (e-e_last)/Ts;
         eint = eint+e*Ts;
-        Volt = PIDG_nabila(e,edot,eint,(gammad-e));
+        Volt = CT_PD_nabila(e,edot,(gammad-e));
         e_last = e;
         T_last = t(i);
     end

@@ -4,7 +4,7 @@
     clc
 
 %% Initilizations
-addpath('C:\GitHub\Robo2\Hw8\NabilaFullContr');
+addpath('D:\GitHub\Robo2\Hw8\NabilaFullContr');
 h=0.001;
 Ts = .005;
 t=0:h:5;
@@ -33,15 +33,15 @@ for i=1:length(t)-1
         e = gammad - b(1:3,i);
         edot = (e-e_last)/Ts;
         eint = eint+e*Ts;
-        Volt = PDG_nabila(e,edot,(gammad-e));
+        Volt = CT_PD_nabila(e,edot,(gammad-e));
         e_last = e;
         T_last = t(i);
     end
     V(:,i) = Volt;
-    k1=Nablia_motor_F(b(:,i),V(:,i));
-    k2=Nablia_motor_F(b(:,i)+k1*h/2,V(:,i));
-    k3=Nablia_motor_F(b(:,i)+k2*h/2,V(:,i));
-    k4=Nablia_motor_F(b(:,i)+k3*h,V(:,i));
+    k1=Nabila_Motor(b(:,i),V(:,i));
+    k2=Nabila_Motor(b(:,i)+k1*h/2,V(:,i));
+    k3=Nabila_Motor(b(:,i)+k2*h/2,V(:,i));
+    k4=Nabila_Motor(b(:,i)+k3*h,V(:,i));
     b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 

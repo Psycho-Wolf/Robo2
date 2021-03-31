@@ -1,6 +1,6 @@
-function bdot = Nablia_motor_F(b,F)
+function V = CT_PD_nabila(e,edot,b)
 
-    bdot = zeros(6,1);
+    b = zeros(6,1);
     theta1 = b(1);
     theta2 = b(2);
     theta3 = b(3);
@@ -16,6 +16,10 @@ function bdot = Nablia_motor_F(b,F)
                                                                                                                                                                                                                                                                                                                                                                                   0.0647*dottheta1^2*sin(theta3) + 0.1293*dottheta2^2*sin(theta3) - 0.0647*dottheta1^2*sin(2*theta2 - theta3) - 0.0260*dottheta1^2*sin(2*theta2 - 2*theta3)];
     G = [0;- 2.5889*cos(theta2 - 1*theta3) - 27.9322*cos(theta2);2.5889*cos(theta2 - 1*theta3)];
 
-    bdot(1:3)=b(4:6);
-    bdot(4:6) = H\(F - d - G);    
-end
+    K = 400;
+    
+    Kp = (K*.8)*eye(3);
+    Kd = (K*.1)*eye(3);
+    
+% V = H*(K*e + 0*edot) + d + G;
+V = H*(Kp*e + Kd*edot) + d + G;
