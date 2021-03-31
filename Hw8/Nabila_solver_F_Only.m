@@ -1,11 +1,11 @@
 %% Clear and close
-clear all
-close all
-clc
+    clear all
+    close all
+    clc
 
-%% Initilizations
+    %% Initilizations
 
-h=0.001;
+    h=0.001;
 Ts = .005;
 t=0:h:5;
 e_last = [0;0;0];
