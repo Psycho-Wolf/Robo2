@@ -37,7 +37,7 @@ for i=1:length(t)-1
         e = gammad - b(1:3,i);
         edot = (e-e_last)/Ts;
         eint = eint+e*Ts;
-        Volt = PD_nabila(e,edot);
+        Volt = PIDG_nabila(e,edot,eint,(gammad-e));
         e_last = e;
         T_last = t(i);
     end
