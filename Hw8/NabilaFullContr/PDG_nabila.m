@@ -11,4 +11,5 @@ function V = PDG_nabila(e,edot,b)
     Kp = (K*.8)*eye(3);
     Kd = (K*.1)*eye(3);
 
+% V = K*e + 0*edot + G;
 V = Kp*e + Kd*edot + G;
