@@ -4,7 +4,7 @@
     clc
 
 %% Initilizations
-addpath('D:\GitHub\Robo2\Hw8\NabilaFullContr');
+addpath('C:\GitHub\Robo2\Hw8\NabilaFullContr');
 h=0.001;
 Ts = .005;
 t=0:h:5;
@@ -33,7 +33,7 @@ for i=1:length(t)-1
         e = gammad - b(1:3,i);
         edot = (e-e_last)/Ts;
         eint = eint+e*Ts;
-        Volt = CT_PD_nabila(e,edot,(gammad-e));
+        Volt = PID_nabila(e,edot,eint);
         e_last = e;
         T_last = t(i);
     end

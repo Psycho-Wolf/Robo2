@@ -4,7 +4,7 @@
     clc
 
     %% Initilizations
-addpath('D:\GitHUB\Robo2\Hw8\NabilaForceOnlyContr');
+addpath('C:\GitHUB\Robo2\Hw8\NabilaForceOnlyContr');
 h =0.001;
 Ts = .005;
 t=0:h:5;
