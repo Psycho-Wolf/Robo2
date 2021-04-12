@@ -6,9 +6,9 @@ t=0:h:5; %time array
 
 b=zeros(6,length(t)); %initialize state vector 
 F=zeros(3,length(t)); %initialize generalized force vector 
-b(:,1)=[0;... %initial theta1
-            0;... %initial theta2 
-            0;... %initial theta3 
+b(:,1)=[pi/3;... %initial theta1
+            pi/3;... %initial theta2 
+            pi/3;... %initial theta3 
             0;... %initial dottheta1
             0;... %initial dottheta2 
             0]; %initial dottheta3
@@ -50,20 +50,20 @@ k4=Nabila(b(:,i)+k3*h,f(:,i));
 b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-figure
-subplot(3,1,1)
-plot(t,IIrE(1,:))
-title('Transposed Jacobian + Gravity')
-xlabel('t (s)')
-ylabel('x (m)')
-subplot(3,1,2)
-plot(t,IIrE(2,:))
-xlabel('t (s)')
-ylabel('y (m)')
-subplot(3,1,3)
-plot(t,IIrE(3,:))
-xlabel('t (s)')
-ylabel('z (m)')
+% figure
+% subplot(3,1,1)
+% plot(t,IIrE(1,:))
+% title('Transposed Jacobian + Gravity')
+% xlabel('t (s)')
+% ylabel('x (m)')
+% subplot(3,1,2)
+% plot(t,IIrE(2,:))
+% xlabel('t (s)')
+% ylabel('y (m)')
+% subplot(3,1,3)
+% plot(t,IIrE(3,:))
+% xlabel('t (s)')
+% ylabel('z (m)')
 
 %% Inverse Jacobian + Gravity
 
@@ -99,27 +99,27 @@ k4=Nabila(b(:,i)+k3*h,f(:,i));
 b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-figure
-subplot(3,1,1)
-plot(t,IIrE(1,:))
-title('Inverse Jacobian + Gravity')
-xlabel('t (s)')
-ylabel('x (m)')
-subplot(3,1,2)
-plot(t,IIrE(2,:))
-xlabel('t (s)')
-ylabel('y (m)')
-subplot(3,1,3)
-plot(t,IIrE(3,:))
-xlabel('t (s)')
-ylabel('z (m)')
+% figure
+% subplot(3,1,1)
+% plot(t,IIrE(1,:))
+% title('Inverse Jacobian + Gravity')
+% xlabel('t (s)')
+% ylabel('x (m)')
+% subplot(3,1,2)
+% plot(t,IIrE(2,:))
+% xlabel('t (s)')
+% ylabel('y (m)')
+% subplot(3,1,3)
+% plot(t,IIrE(3,:))
+% xlabel('t (s)')
+% ylabel('z (m)')
 
 %% Computed-Torque Task Space
 
  IIrED = [0.2;0.5;0.2];
 
-Kp=100; %proportional gain
-Kd=30; %derivative gain
+Kp=100; %proportional gain 100
+Kd=75; %derivative gain 30
 IIrE=zeros(3,length(t));
 
 e_last=[0;0;0]; %initialize so that derivative can be computed on first iteration of loop
@@ -148,29 +148,29 @@ for i=1:length(t)-1
     b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-figure
-subplot(3,1,1)
-plot(t,IIrE(1,:))
-title('Computed-Torque')
-xlabel('t (s)')
-ylabel('x (m)')
-subplot(3,1,2)
-plot(t,IIrE(2,:))
-xlabel('t (s)')
-ylabel('y (m)')
-subplot(3,1,3)
-plot(t,IIrE(3,:))
-xlabel('t (s)')
-ylabel('z (m)')
+% figure
+% subplot(3,1,1)
+% plot(t,IIrE(1,:))
+% title('Computed-Torque')
+% xlabel('t (s)')
+% ylabel('x (m)')
+% subplot(3,1,2)
+% plot(t,IIrE(2,:))
+% xlabel('t (s)')
+% ylabel('y (m)')
+% subplot(3,1,3)
+% plot(t,IIrE(3,:))
+% xlabel('t (s)')
+% ylabel('z (m)')
 
 %% Joint-Space Trajectory Problem
 
 gam = [cos(2*pi*0.2*t); cos(2*pi*0.3*t); cos(2*pi*0.5*t)];
-gamd = [-2*pi*sin(2*pi*t/5)/5;   -3*pi*sin(3*pi*t/5)/5;    -pi*sin(pi*t)];
-gamdd = [(-4*pi^2*cos((2*pi*t)/5))/25; (-9*pi^2 * cos((3*pi*t)/5))/25; -pi^2 *cos(pi*t)]; 
+gamd = [-(2*pi*sin((2*pi*t)/5))/5;   -(3*pi*sin((3*pi*t)/5))/5;    -pi*sin(pi*t)];
+gamdd = [-(4*pi^2*cos((2*pi*t)/5))/25; (27*pi^3*sin((3*pi*t)/5))/125; -pi^2*cos(pi*t)]; 
 
 IIrE=zeros(3,length(t));
-omega = 25;
+omega = 25; 
 zeta = 6;
 
 Ts=0.005; %controller sampling time
@@ -198,18 +198,29 @@ end
 
 figure
 subplot(3,1,1)
+hold on;
 plot(t,b(1,:))
+plot(t,gam(1,:),'--')
 title('Joint Space')
 xlabel('t (s)')
 ylabel('\theta_1 (rad)')
+hold off;
+
 subplot(3,1,2)
+hold on;
 plot(t,b(2,:))
+plot(t,gam(2,:),'--')
 xlabel('t (s)')
 ylabel('\theta_2 (rad)')
+hold off;
+
 subplot(3,1,3)
+hold on;
 plot(t,b(3,:))
+plot(t,gam(3,:),'--')
 xlabel('t (s)')
 ylabel('\theta_3 (rad)')
+hold off;
 
 %% Task-Space Trajectory
 h=0.001; %simulation time step 
@@ -249,17 +260,17 @@ for i=1:length(t)-1
     b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-figure
-subplot(3,1,1)
-plot(t,IIrE(1,:))
-title('Task Space')
-xlabel('t (s)')
-ylabel('\theta_1 (rad)')
-subplot(3,1,2)
-plot(t,IIrE(2,:))
-xlabel('t (s)')
-ylabel('\theta_2 (rad)')
-subplot(3,1,3)
-plot(t,IIrE(3,:))
-xlabel('t (s)')
-ylabel('\theta_3 (rad)')
+% figure
+% subplot(3,1,1)
+% plot(t,IIrE(1,:))
+% title('Task Space')
+% xlabel('t (s)')
+% ylabel('\theta_1 (rad)')
+% subplot(3,1,2)
+% plot(t,IIrE(2,:))
+% xlabel('t (s)')
+% ylabel('\theta_2 (rad)')
+% subplot(3,1,3)
+% plot(t,IIrE(3,:))
+% xlabel('t (s)')
+% ylabel('\theta_3 (rad)')
