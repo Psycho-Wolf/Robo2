@@ -4,20 +4,20 @@ function [pos,ori] = Nabila_FK(b)
     theta2 = b(2);
     theta3 = b(3);
     
-    rBfromI = [0;0;0];
-    r1fromB = [0;0;0.17];
-    r2from1 = [0;0.11;.13];
-    r3from2 = [0;0.49;.02];
+IIr1 = [0;0;0.17];
+oneoner2 = [0;.11;.13];
+twotwor3 = [0;0.49;0.02];
 
-    T1 = rotzRad(theta1);
-    T2=T1*rotzRad(-pi/2)*rotyRad(-pi/2)*rotzRad(theta2);
-    T3=T2*rotyRad(pi)*rotzRad(theta3);
+IT1 = rotzRad(theta1);
+oneT2 = rotyRad(-pi/2)*rotxRad(-pi/2)*rotzRad(theta2);
+IT2 = IT1*oneT2;
+twoT3 = rotyRad(pi)*rotzRad(theta3);
+IT3 = IT2*twoT3;
 
-    rB=rBfromI;
-    r1=rB+r1fromB;
-    r2=r1+T1*r2from1;
-    r3=r2+T2*r3from2;
+IIr2 = IIr1+IT1*oneoner2;
+IIr3 = IIr2+IT2*twotwor3;
+IIrE = IIr3+IT3*[0;0.32;0.13];
     
-    pos = r3;
-    ori = T3;
+    pos = IIrE;
+    ori = IT3;
 end
