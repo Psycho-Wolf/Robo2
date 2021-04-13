@@ -167,11 +167,11 @@ end
 
 gam = [cos(2*pi*0.2*t); cos(2*pi*0.3*t); cos(2*pi*0.5*t)];
 gamd = [-(2*pi*sin((2*pi*t)/5))/5;   -(3*pi*sin((3*pi*t)/5))/5;    -pi*sin(pi*t)];
-gamdd = [-(4*pi^2*cos((2*pi*t)/5))/25; (27*pi^3*sin((3*pi*t)/5))/125; -pi^2*cos(pi*t)]; 
+gamdd = [-(4*pi^2*cos((2*pi*t)/5))/25; -(9*pi^2*cos((3*pi*t)/5))/25; -pi^2*cos(pi*t)]; 
 
 IIrE=zeros(3,length(t));
-omega = 25; 
-zeta = 6;
+omega = 150; 
+zeta = .5;
 
 Ts=0.005; %controller sampling time
 T_last=-Ts;
@@ -196,31 +196,31 @@ for i=1:length(t)-1
     b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-figure
-subplot(3,1,1)
-hold on;
-plot(t,b(1,:))
-plot(t,gam(1,:),'--')
-title('Joint Space')
-xlabel('t (s)')
-ylabel('\theta_1 (rad)')
-hold off;
-
-subplot(3,1,2)
-hold on;
-plot(t,b(2,:))
-plot(t,gam(2,:),'--')
-xlabel('t (s)')
-ylabel('\theta_2 (rad)')
-hold off;
-
-subplot(3,1,3)
-hold on;
-plot(t,b(3,:))
-plot(t,gam(3,:),'--')
-xlabel('t (s)')
-ylabel('\theta_3 (rad)')
-hold off;
+% figure
+% subplot(3,1,1)
+% hold on;
+% plot(t,b(1,:))
+% plot(t,gam(1,:),'--')
+% title('Joint Space')
+% xlabel('t (s)')
+% ylabel('\theta_1 (rad)')
+% hold off;
+% 
+% subplot(3,1,2)
+% hold on;
+% plot(t,b(2,:))
+% plot(t,gam(2,:),'--')
+% xlabel('t (s)')
+% ylabel('\theta_2 (rad)')
+% hold off;
+% 
+% subplot(3,1,3)
+% hold on;
+% plot(t,b(3,:))
+% plot(t,gam(3,:),'--')
+% xlabel('t (s)')
+% ylabel('\theta_3 (rad)')
+% hold off;
 
 %% Task-Space Trajectory
 h=0.001; %simulation time step 
@@ -233,8 +233,8 @@ dotIIrD = [-pi*sin((2*pi*t)/5)/25;         pi*cos((2*pi*t)/5)/25;         0+(t*0
 ddotIIrD = [-2*pi^2*cos((2*pi*t)/5)/125;          -2*pi^2*sin((2*pi*t)/5)/125;        0+(t*0)];
 
 IIrE=zeros(3,length(t));
-omega = 1;
-zeta = 1;
+omega = 150;
+zeta = .5;
 
 Ts=0.005; %controller sampling time
 T_last=-Ts;
@@ -260,17 +260,25 @@ for i=1:length(t)-1
     b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-% figure
-% subplot(3,1,1)
-% plot(t,IIrE(1,:))
-% title('Task Space')
-% xlabel('t (s)')
-% ylabel('\theta_1 (rad)')
-% subplot(3,1,2)
-% plot(t,IIrE(2,:))
-% xlabel('t (s)')
-% ylabel('\theta_2 (rad)')
-% subplot(3,1,3)
-% plot(t,IIrE(3,:))
-% xlabel('t (s)')
-% ylabel('\theta_3 (rad)')
+figure
+subplot(3,1,1)
+hold on;
+plot(t,IIrE(1,:))
+plot(t,IIrD(1,:),'--')
+title('Task Space')
+xlabel('t (s)')
+ylabel('\theta_1 (rad)')
+
+subplot(3,1,2)
+hold on;
+plot(t,IIrE(2,:))
+plot(t,IIrD(2,:),'--')
+xlabel('t (s)')
+ylabel('\theta_2 (rad)')
+
+subplot(3,1,3)
+hold on;
+plot(t,IIrE(3,:))
+plot(t,IIrD(3,:),'--')
+xlabel('t (s)')
+ylabel('\theta_3 (rad)')
