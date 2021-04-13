@@ -16,7 +16,8 @@ set(gca,'ZDir','reverse');
 set(gca,'YDir','reverse');
 
 axis equal;
+
 camlight left;
 set(gca,'projection','perspective');
 view([1;1;.5]);
-% axis([-5 5 -5 5 -5 5]);
+axis([-5 5 -5 5 -5 5]);
