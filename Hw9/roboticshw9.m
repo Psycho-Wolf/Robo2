@@ -50,20 +50,20 @@ k4=Nabila(b(:,i)+k3*h,f(:,i));
 b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-% figure
-% subplot(3,1,1)
-% plot(t,IIrE(1,:))
-% title('Transposed Jacobian + Gravity')
-% xlabel('t (s)')
-% ylabel('x (m)')
-% subplot(3,1,2)
-% plot(t,IIrE(2,:))
-% xlabel('t (s)')
-% ylabel('y (m)')
-% subplot(3,1,3)
-% plot(t,IIrE(3,:))
-% xlabel('t (s)')
-% ylabel('z (m)')
+figure
+subplot(3,1,1)
+plot(t,IIrE(1,:))
+title('Transposed Jacobian + Gravity')
+xlabel('t (s)')
+ylabel('x (m)')
+subplot(3,1,2)
+plot(t,IIrE(2,:))
+xlabel('t (s)')
+ylabel('y (m)')
+subplot(3,1,3)
+plot(t,IIrE(3,:))
+xlabel('t (s)')
+ylabel('z (m)')
 
 %% Inverse Jacobian + Gravity
 
@@ -99,20 +99,20 @@ k4=Nabila(b(:,i)+k3*h,f(:,i));
 b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-% figure
-% subplot(3,1,1)
-% plot(t,IIrE(1,:))
-% title('Inverse Jacobian + Gravity')
-% xlabel('t (s)')
-% ylabel('x (m)')
-% subplot(3,1,2)
-% plot(t,IIrE(2,:))
-% xlabel('t (s)')
-% ylabel('y (m)')
-% subplot(3,1,3)
-% plot(t,IIrE(3,:))
-% xlabel('t (s)')
-% ylabel('z (m)')
+figure
+subplot(3,1,1)
+plot(t,IIrE(1,:))
+title('Inverse Jacobian + Gravity')
+xlabel('t (s)')
+ylabel('x (m)')
+subplot(3,1,2)
+plot(t,IIrE(2,:))
+xlabel('t (s)')
+ylabel('y (m)')
+subplot(3,1,3)
+plot(t,IIrE(3,:))
+xlabel('t (s)')
+ylabel('z (m)')
 
 %% Computed-Torque Task Space
 
@@ -148,20 +148,20 @@ for i=1:length(t)-1
     b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-% figure
-% subplot(3,1,1)
-% plot(t,IIrE(1,:))
-% title('Computed-Torque')
-% xlabel('t (s)')
-% ylabel('x (m)')
-% subplot(3,1,2)
-% plot(t,IIrE(2,:))
-% xlabel('t (s)')
-% ylabel('y (m)')
-% subplot(3,1,3)
-% plot(t,IIrE(3,:))
-% xlabel('t (s)')
-% ylabel('z (m)')
+figure
+subplot(3,1,1)
+plot(t,IIrE(1,:))
+title('Computed-Torque')
+xlabel('t (s)')
+ylabel('x (m)')
+subplot(3,1,2)
+plot(t,IIrE(2,:))
+xlabel('t (s)')
+ylabel('y (m)')
+subplot(3,1,3)
+plot(t,IIrE(3,:))
+xlabel('t (s)')
+ylabel('z (m)')
 
 %% Joint-Space Trajectory Problem
 
@@ -196,31 +196,31 @@ for i=1:length(t)-1
     b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
 
-% figure
-% subplot(3,1,1)
-% hold on;
-% plot(t,b(1,:))
-% plot(t,gam(1,:),'--')
-% title('Joint Space')
-% xlabel('t (s)')
-% ylabel('\theta_1 (rad)')
-% hold off;
-% 
-% subplot(3,1,2)
-% hold on;
-% plot(t,b(2,:))
-% plot(t,gam(2,:),'--')
-% xlabel('t (s)')
-% ylabel('\theta_2 (rad)')
-% hold off;
-% 
-% subplot(3,1,3)
-% hold on;
-% plot(t,b(3,:))
-% plot(t,gam(3,:),'--')
-% xlabel('t (s)')
-% ylabel('\theta_3 (rad)')
-% hold off;
+figure
+subplot(3,1,1)
+hold on;
+plot(t,b(1,:))
+plot(t,gam(1,:),'--')
+title('Joint Space')
+xlabel('t (s)')
+ylabel('\theta_1 (rad)')
+hold off;
+
+subplot(3,1,2)
+hold on;
+plot(t,b(2,:))
+plot(t,gam(2,:),'--')
+xlabel('t (s)')
+ylabel('\theta_2 (rad)')
+hold off;
+
+subplot(3,1,3)
+hold on;
+plot(t,b(3,:))
+plot(t,gam(3,:),'--')
+xlabel('t (s)')
+ylabel('\theta_3 (rad)')
+hold off;
 
 %% Task-Space Trajectory
 h=0.001; %simulation time step 
@@ -233,7 +233,7 @@ dotIIrD = [-pi*sin((2*pi*t)/5)/25;         pi*cos((2*pi*t)/5)/25;         0+(t*0
 ddotIIrD = [-2*pi^2*cos((2*pi*t)/5)/125;          -2*pi^2*sin((2*pi*t)/5)/125;        0+(t*0)];
 
 IIrE=zeros(3,length(t));
-omega = 150;
+omega = 15;
 zeta = .5;
 
 Ts=0.005; %controller sampling time
