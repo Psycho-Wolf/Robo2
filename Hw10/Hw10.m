@@ -14,17 +14,17 @@ IqD = [ cos((pi/2)/2);
 IIrD = [1;1;1];
 
 b = zeros(13,length(t));
-b(:,1) = [1;...
+b(:,1) = [0;... % w
+          0;...
+          0;...
+          0;... % rdot
+          0;...
+          0;...
+          1;... % q
           0;...
           0;...
           0;...
-          0;...
-          0;...
-          0;...
-          0;...
-          0;...
-          0;...
-          0;...
+          0;... % r
           0;...
           0];
 TF = [0*ones(1,length(t));...
@@ -38,7 +38,7 @@ T_last = -Ts;
 for i=1:length(t)-1
 
     if t(i) - T_last >= Ts
-        IqB = [b(1);b(2);b(3);b(4)];
+        IqB = [b(7);b(8);b(9);b(10)];
         BqD = quatmult([IqB(1);-IqB(2:4)],IqD);
         Forces = PD_AUV(b(:,i),BqD,IIrD);
         T_last = t(i);
@@ -62,21 +62,21 @@ end
 
 figure
 subplot(4,1,1)
-plot(t,b(5,:),'r')
+plot(t,b(11,:),'r')
 xlabel('t (s)')
 ylabel('X Pos')
 
 subplot(4,1,2)
-plot(t,b(6,:),'r')
+plot(t,b(12,:),'r')
 xlabel('t (s)')
 ylabel('Y Pos')
 
 subplot(4,1,3)
-plot(t,b(7,:),'r')
+plot(t,b(13,:),'r')
 xlabel('t (s)')
 ylabel('Z Pos')
 
 subplot(4,1,4)
-plot(t,b(1,:),'r')
+plot(t,b(7,:),'r')
 xlabel('t (s)')
 ylabel('Real Quat')
