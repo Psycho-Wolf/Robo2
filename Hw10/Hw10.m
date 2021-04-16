@@ -4,7 +4,7 @@ clear all
 clc
 %% Inits
 h = 0.005;
-t = 0:h:10;
+t = 0:h:50;
 Ts = .005;
 
 IqD = [ cos((pi/2)/2);
@@ -39,7 +39,7 @@ for i=1:length(t)-1
 
     if t(i) - T_last >= Ts
         IqB = [b(1);b(2);b(3);b(4)];
-        BqD = quatProd(IqB,IqD);
+        BqD = quatProd([IqB(1);-IqB(2:4)],IqD);
         Forces = PD_AUV(b(:,i),BqD,IIrD);
         T_last = t(i);
     end
@@ -52,8 +52,8 @@ for i=1:length(t)-1
     b(:,i+1) = b(:,i) + h*(k1/6 + k2/3 + k3/3 +k4/6);
 end
 
-% Draw
-% for i = 1:length(b)
+
+% for i = 1:5:length(b)
 %     draw_AUV(b(:,i));
 %     drawnow
 % end

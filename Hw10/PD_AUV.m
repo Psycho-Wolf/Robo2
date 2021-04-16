@@ -7,11 +7,11 @@ rdot = [b(11);b(12);b(13)];
 
 BqD = [BqD(2); BqD(3); BqD(4)];
 
-Ktp = 200;
-Ktd = 20;
+Ktp = 10;
+Ktd = 50;
 
 Kfp = 500;
-Kfd = 1000;
+Kfd = 750;
 
 TF = [  (Ktp*BqD) - (Ktd*w);...
         (Kfp*(IIrD - r)) - (Kfd*rdot)];
