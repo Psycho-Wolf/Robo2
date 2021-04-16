@@ -38,7 +38,7 @@ T_last = -Ts;
 for i=1:length(t)-1
 
     if t(i) - T_last >= Ts
-        IqB = [b(7);b(8);b(9);b(10)];
+        IqB = [b(7,i);b(8,i);b(9,i);b(10,i)];
         BqD = quatmult([IqB(1);-IqB(2:4)],IqD);
         Forces = PD_AUV(b(:,i),BqD,IIrD);
         T_last = t(i);
@@ -53,10 +53,10 @@ for i=1:length(t)-1
 end
 
 
-% for i = 1:5:length(b)
-%     draw_AUV(b(:,i));
-%     drawnow
-% end
+for i = 1:5:length(b)
+    draw_AUV(b(:,i));
+    drawnow
+end
 
 %% Graphins and Ploting
 

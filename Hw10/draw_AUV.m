@@ -1,7 +1,7 @@
 function rtrn = draw_AUV(b)
 
-rB = b(5:7);
-q = b(1:4);
+rB = b(11:13);
+q = b(7:10);
 
 T = rotq(q);
 

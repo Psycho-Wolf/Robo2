@@ -6,15 +6,13 @@ q = [b(7);b(8);b(9);b(10)];
 r = [b(11);b(12);b(13)];
 
 
-sig = BqD(1);
-
 BqD = [BqD(2); BqD(3); BqD(4)];
 
-Ktp = 750;
+Ktp = 1500;
 Ktd = 750;
 
 Kfp = 500;
 Kfd = 750;
 
-TF = [  (Ktp*(sig*BqD)) - (Ktd*w);...
+TF = [  (Ktp*(BqD)) - (Ktd*w);...
         (Kfp*(IIrD - r)) - (Kfd*rdot)];
