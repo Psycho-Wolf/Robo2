@@ -1,7 +1,7 @@
 function rtrn = draw_AUV(b)
 
-rB = b(11:13);
-q = b(7:10);
+rB = b(5:7);
+q = b(1:4);
 
 T = rotq(q);
 
@@ -20,4 +20,4 @@ axis equal;
 camlight left;
 set(gca,'projection','perspective');
 view([1;1;.5]);
-axis([-5 5 -5 5 -5 5]);
+axis([-3 3 -3 3 -3 3]);
