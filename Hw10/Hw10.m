@@ -14,7 +14,7 @@ IqD = [ cos((pi/2)/2);
 IIrD = [1;1;1];
 
 b = zeros(13,length(t));
-b(:,1) = [0;...
+b(:,1) = [1;...
           0;...
           0;...
           0;...
@@ -61,17 +61,22 @@ end
 %% Graphins and Ploting
 
 figure
-subplot(3,2,1)
+subplot(4,1,1)
 plot(t,b(5,:),'r')
 xlabel('t (s)')
 ylabel('X Pos')
 
-subplot(3,2,3)
+subplot(4,1,2)
 plot(t,b(6,:),'r')
 xlabel('t (s)')
 ylabel('Y Pos')
 
-subplot(3,2,5)
+subplot(4,1,3)
 plot(t,b(7,:),'r')
 xlabel('t (s)')
 ylabel('Z Pos')
+
+subplot(4,1,4)
+plot(t,b(1,:),'r')
+xlabel('t (s)')
+ylabel('Real Quat')
