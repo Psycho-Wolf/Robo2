@@ -1,4 +1,4 @@
-function rtrn = denso_vp_6242_draw(gamma)
+function denso_vp_6242_draw(gamma)
 
 theta1 = gamma(1);
 theta2 = gamma(2);
