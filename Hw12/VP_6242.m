@@ -1,7 +1,7 @@
 function bdot = VP_6242(b)
 
 gamma = b(1:6);
-gammadot = (7:12);
+gammadot = b(7:12);
 theta1 = gamma(1);
 theta2 = gamma(2);
 theta3 = gamma(3);
@@ -76,7 +76,7 @@ ItildeE = Itilde;
 
 JB = zeros(6);
 wBI = [0;0;0];
-JdotB = zeros(3);
+JdotB = zeros(6);
 
 %% Recursive Kinematics
 [IT1,w1I,Irdot1,J1,Jdot1] = recursive_kinematics(ITB, wBI, JB, JdotB, TB1, rb1, Ihat1, Itilde1, gamma, gammadot);
@@ -85,8 +85,6 @@ JdotB = zeros(3);
 [IT4,w4I,Irdot4,J4,Jdot4] = recursive_kinematics(IT3, w3I, J3, Jdot3, T34, r34, Ihat4, Itilde4, gamma, gammadot);
 [IT5,w5I,Irdot5,J5,Jdot5] = recursive_kinematics(IT4, w4I, J4, Jdot4, T45, r45, Ihat5, Itilde5, gamma, gammadot);
 [ITE,wEI,IrdotE,JE,JdotE] = recursive_kinematics(IT5, w5I, J5, Jdot5, T5E, r5E, IhatE, ItildeE, gamma, gammadot);
-
-
 
 
 bdot =  0;

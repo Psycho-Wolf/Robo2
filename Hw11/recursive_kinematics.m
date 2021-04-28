@@ -5,7 +5,7 @@ JN = [N1TN' zeros(3); ITN1*skew(N1rN)' eye(3)]*JN1 + [IhatN; ITN1*ItildeN];
 
 temp = JN*gammadot;
 NwI = temp(1:3,:);
-IrdotIrdotN = temp(4:6,:);
+IrdotN = temp(4:6,:);
 % NwI = JN(1:3,:)*gammadot;
 % IrdotN = JN(4:6,:)*gammadot;
 
