@@ -9,6 +9,7 @@ theta4 = gamma(4);
 theta5 = gamma(5);
 theta6 = gamma(6);
 
+
 % V Need T_N1_N, r_N1_N, IhatN, ItildeN
 
 %% constants
@@ -38,7 +39,6 @@ m3 = 1.98159082;
 % Gamma
 
 % Inetria Matricies
-JB = zeros(3);
 J1 = [  .01385583, -0.00000008, 0.00000007;
         -0.00000008, 0.01366144, 0.00000002;
         0.00000007, 0.00000002, 0.00342620;];
@@ -74,6 +74,7 @@ Itilde4 = Itilde;
 Itilde5 = Itilde;
 ItildeE = Itilde;
 
+JB = zeros(6);
 wBI = [0;0;0];
 JdotB = zeros(3);
 
