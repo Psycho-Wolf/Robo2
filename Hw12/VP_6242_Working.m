@@ -1,8 +1,10 @@
 function bdot = VP_6242(b,F)
+%% Initilizations
 bdot = zeros(12,1);
 gamma=b(1:6);
 dotgamma = b(7:12);
 
+%% Body Constants
 m1 = 1.67711788;
 m2 = 2.18012904;
 m3 = 1.98159082;
@@ -24,6 +26,7 @@ threethreer4 = [-75; 0; 86]/1000;
 fourfourr5 = [125; 0; 0]/1000;
 fivefiverE = [132.5; 0; 0]/1000;
 
+%% Robo Dynamics
 IT1 = rotz(b(1));
 oneT2 = roty(b(2));
 twoT3 = roty(b(3));
@@ -85,12 +88,14 @@ JE = [0.00004684 -0.00000206 -0.00000030;...
       
 Ig = [0;0;9.8];
 
+%% Recursive
 [IT2, twotwowI, dot_IIr2, Jac2, dot_Jac2] = recursive_kinematics(IT1, oneonewI, Jac1, dot_Jac1, oneT2, oneoner2, hat_I2, tilda_I, dotgamma);
 [IT3, threethreewI, dot_IIr3, Jac3, dot_Jac3] = recursive_kinematics(IT2, twotwowI, Jac2, dot_Jac2, twoT3, twotwor3, hat_I3, tilda_I, dotgamma);
 [IT4, fourfourwI, dot_IIr4, Jac4, dot_Jac4] = recursive_kinematics(IT3, threethreewI, Jac3, dot_Jac3, threeT4, threethreer4, hat_I4, tilda_I, dotgamma);
 [IT5, fivefivewI, dot_IIr5, Jac5, dot_Jac5] = recursive_kinematics(IT4, fourfourwI, Jac4, dot_Jac4, fourT5, fourfourr5, hat_I5, tilda_I, dotgamma);
 [ITE, EEwI, dot_IIrE, JacE, dot_JacE] = recursive_kinematics(IT5,fivefivewI, Jac5, dot_Jac5, fiveTE, fivefiverE, hat_IE, tilda_I, dotgamma);
 
+%% System Properties
 H1 = (Jac1.' * [J1,     skew(gam1)*IT1.';  IT1*skew(gam1).',     m1*eye(3)] * Jac1);
 H2 = (Jac2.' * [J2,     skew(gam2)*IT2.';  IT2*skew(gam2).',     m2*eye(3)] * Jac2);
 H3 = (Jac3.' * [J3,     skew(gam3)*IT3.';  IT3*skew(gam3).',     m3*eye(3)] * Jac3);
@@ -119,6 +124,7 @@ GE = JacE.' * [cross(gamE, (ITE.' * Ig)); Ig * mE];
 Gtot = G1 + G2 + G3 + G4 + G5 + GE;
 
 middleMatrix = F;
- 
+
+%% State vectors
 bdot(1:6) = b(7:12);
 bdot(7:12) = Htot \ (middleMatrix - dtot - Gtot);
