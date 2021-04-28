@@ -63,4 +63,4 @@ Ihat = zeros(3,6);
 
 
 
-output =  ;
+bdot =  0;
