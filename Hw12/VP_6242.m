@@ -1,3 +1,60 @@
 function output = VP_6242(input)
 
-output = 0;
+
+% V Need T_N1_N, r_N1_N, IhatN, ItildeN
+
+%% constants
+% Rot Mats
+TB1 = 
+
+% Pos vectors
+rb1 = [0;0;.155];
+r12 = [0;0;.1235];
+r23 = [0;0;.21];
+r34 = [-.075;0;.086];
+
+
+% Masses
+m1 = 1.67711788;
+m2 = 2.18012904;
+m3 = 1.98159082;
+
+% Gamma
+
+% Inetria Matricies
+JB = zeros(3)
+J1 = [  .01385583, -0.00000008, 0.00000007;
+        -0.00000008 0.01366144 0.00000002;
+        0.00000007 0.00000002 0.00342620;];
+    
+J2 = [  0.03147084 0.00000021 -0.00067801;
+        0.00000021 0.02569684 -0.00004077;
+        -0.00067801 -0.00004077 0.00840044];
+
+J3 = [  0.00000000 0.00000024 0.00000270;
+        0.00000024 0.00632418 -0.00000000;
+        0.00000270 -0.00000000 0.00632418];
+ 
+J4 = [  0.00175468 -0.00004164 -0.00000141;
+        -0.00004164 0.00521944 -0.00000199;
+        -0.00000141 -0.00000199 0.00585960];
+
+J5 = [  0.00037655 -0.00000128 0.00000000;
+        -0.00000128 0.00066690 -0.00000000;
+        0.00000000 -0.00000000 0.00065165];
+    
+    
+        
+
+%% Recursive Kinematics
+[IT1,w1I,Irdot1,J1,Jdot1] = recursive_kinematics(ITb, wBI, JB, JdotB, TB1, rb1, Ihat1, Itilde1, gamma, gammadot)
+[IT2,w2I,Irdot2,J2,Jdot2] = recursive_kinematics(IT1, w1I, J1, Jdot1, T12, r12, Ihat2, Itilde2, gamma, gammadot)
+[IT3,w3I,Irdot3,J3,Jdot3] = recursive_kinematics(IT2, w2I, J2, Jdot2, T23, r23, Ihat3, Itilde3, gamma, gammadot)
+[IT4,w4I,Irdot4,J4,Jdot4] = recursive_kinematics(IT3, w3I, J3, Jdot3, T34, r34, Ihat4, Itilde4, gamma, gammadot)
+[IT5,w5I,Irdot5,J5,Jdot5] = recursive_kinematics(IT4, w4I, J4, Jdot4, T45, r45, Ihat5, Itilde5, gamma, gammadot)
+[ITE,wEI,IrdotE,JE,JdotE] = recursive_kinematics(IT5, w5I, J5, Jdot5, T5E, r5E, IhatE, ItildeE, gamma, gammadot)
+
+
+
+
+output =  ;
