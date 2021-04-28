@@ -1,4 +1,4 @@
-function [ITN,NwI,IrdotN,JN,JdotN] = recursive_kinematics(ITN1, N1wI, JN1, JdotN1, N1TN, N1rN, IhatN, ItildeN, gamma, gammadot)
+function [ITN,NwI,IrdotN,JN,JdotN] = recursive_kinematics(ITN1, N1wI, JN1, JdotN1, N1TN, N1rN, IhatN, ItildeN, gammadot)
 
 ITN = ITN1*N1TN;
 JN = [N1TN' zeros(3); ITN1*skew(N1rN)' eye(3)]*JN1 + [IhatN; ITN1*ItildeN];
