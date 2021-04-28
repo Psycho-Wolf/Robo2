@@ -5,13 +5,20 @@ function output = VP_6242(input)
 
 %% constants
 % Rot Mats
-TB1 = 
+TB1 = rotzRad(theta1);
+T12 = rotyRad(theta2);
+T23 = rotyRad(theta3);
+T34 = rotyRad(-pi/2)*rotxRad(theta4);
+T45 = rotyRad(theta5);
+T5E = rotxRad(theta6);
 
 % Pos vectors
 rb1 = [0;0;.155];
 r12 = [0;0;.1235];
 r23 = [0;0;.21];
 r34 = [-.075;0;.086];
+r45 = [.125;0;0];
+r5E = [.1325;0;0];
 
 
 % Masses
@@ -43,8 +50,7 @@ J5 = [  0.00037655 -0.00000128 0.00000000;
         -0.00000128 0.00066690 -0.00000000;
         0.00000000 -0.00000000 0.00065165];
     
-    
-        
+Ihat = zeros(3,6);        
 
 %% Recursive Kinematics
 [IT1,w1I,Irdot1,J1,Jdot1] = recursive_kinematics(ITb, wBI, JB, JdotB, TB1, rb1, Ihat1, Itilde1, gamma, gammadot)
