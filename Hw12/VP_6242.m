@@ -1,4 +1,4 @@
-function output = VP_6242(input)
+function bdot = VP_6242(b,torque)
 
 
 % V Need T_N1_N, r_N1_N, IhatN, ItildeN
