@@ -1,5 +1,7 @@
-function [] = mm_2021()
+function bdot = mm_2021(b,F)
 
+bdot = zeros(16,1);
+gamma = b(1,
 x = gamma(1);
 y = gamma(2);
 psi = gamma(3);
