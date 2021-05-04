@@ -8,11 +8,11 @@ function mm_2021_draw(gamma)
 % then whether it is refeing to the left or right portion of the robot
 
 % If on desktop:
-% addpath('D:\GitHub\Robo2\FinalExam\mm_2021');
-% addpath('D:\GitHUB\Robo2Lab\UsefulFNs');
+addpath('D:\GitHub\Robo2\FinalExam\mm_2021');
+addpath('D:\GitHUB\Robo2Lab\UsefulFNs');
 % If on surface:
-addpath('C:\GitHUB\Robo2Lab\UsefulFNs');
-addpath('C:\GitHub\Robo2\FinalExam\mm_2021');
+% addpath('C:\GitHUB\Robo2Lab\UsefulFNs');
+% addpath('C:\GitHub\Robo2\FinalExam\mm_2021');
 
 %% Gamma
 x = gamma(1);
@@ -102,19 +102,19 @@ r_B_C = [x;y;.3048/2];
 r_B_R = r_B_C + TR*r_C_R;
 r_B_L = r_B_C + TL*r_C_L;
 
-r_B_1 = r_B_C + T1*r_C_1;
+r_B_1 = r_B_C + BTC*r_C_1;
 
-r_B_2R = r_B_1 + T2R*r_1_2R;
-r_B_3R = r_B_2R + T3R*r_2R_3R;
-r_B_4R = r_B_3R + T4R*r_3R_4R;
-r_B_5R = r_B_4R + T5R*r_4R_5R;
-r_B_6R = r_B_5R + T6R*r_5R_6R;
+r_B_2R = r_B_1 + T1*r_1_2R;
+r_B_3R = r_B_2R + T2R*r_2R_3R;
+r_B_4R = r_B_3R + T3R*r_3R_4R;
+r_B_5R = r_B_4R + T4R*r_4R_5R;
+r_B_6R = r_B_5R + T5R*r_5R_6R;
 
-r_B_2L = r_B_1 + T2L*r_1_2L;
-r_B_3L = r_B_2L + T3L*r_2L_3L;
-r_B_4L = r_B_3L + T4L*r_3L_4L;
-r_B_5L = r_B_4L + T5L*r_4L_5L;
-r_B_6L = r_B_5L + T6L*r_5L_6L;
+r_B_2L = r_B_1 + T1*r_1_2L;
+r_B_3L = r_B_2L + T2L*r_2L_3L;
+r_B_4L = r_B_3L + T3L*r_3L_4L;
+r_B_5L = r_B_4L + T4L*r_4L_5L;
+r_B_6L = r_B_5L + T5L*r_5L_6L;
 
 %% STL building of the robot
 Chassis_v=repmat(r_B_C,1,length(Chassis))+BTC*Chassis';
@@ -158,7 +158,7 @@ patch('Faces',Link6L_f,'Vertices',Link6L_v','EdgeColor','None','FaceColor',[.792
 axis equal
 camlight left
 set(gca,'projection','perspective')
-% view([1;1;.5])
-view([0;0;1])
+view([1;1;.5])
+% view([0;0;1])
 % axis([-3 3 -3 3 0 3]);
 hold off;
