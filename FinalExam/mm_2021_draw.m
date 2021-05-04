@@ -8,11 +8,11 @@ function mm_2021_draw(gamma)
 % then whether it is refeing to the left or right portion of the robot
 
 % If on desktop:
-addpath('D:\GitHub\Robo2\FinalExam\mm_2021');
-addpath('D:\GitHUB\Robo2Lab\UsefulFNs');
+% addpath('D:\GitHub\Robo2\FinalExam\mm_2021');
+% addpath('D:\GitHUB\Robo2Lab\UsefulFNs');
 % If on surface:
-% addpath('C:\GitHUB\Robo2Lab\UsefulFNs');
-% addpath('C:\GitHub\Robo2\FinalExam\mm_2021');
+addpath('C:\GitHUB\Robo2Lab\UsefulFNs');
+addpath('C:\GitHub\Robo2\FinalExam\mm_2021');
 
 %% Gamma
 x = gamma(1);
@@ -79,12 +79,12 @@ r_6L_EL = [.1178;-.0508;0];
 
 %% FK DCMs
 
-ITC = rotzRad(psi);
+BTC = rotzRad(psi);
 
-TR = ITC*rotyRad(theta_R);
-TL = ITC*rotyRad(theta_L);
+TR = BTC*rotyRad(theta_R);
+TL = BTC*rotyRad(theta_L);
 
-T1 = ITC*rotzRad(theta_1);
+T1 = BTC*rotzRad(theta_1);
 T2R = T1*rotyRad(theta_2R);
 T3R = T2R*rotxRad(theta_3R);
 T4R = T3R*rotyRad(theta_4R);
@@ -98,42 +98,42 @@ T5L = T4L*rotyRad(theta_5L);
 T6L = T5L*rotyRad(theta_6L);
 
 %% FK Vectors
-r_I_C = ITC*[x;y;.3048/2];
-r_I_R = r_I_C + TR*r_C_R;
-r_I_L = r_I_C + TL*r_C_L;
+r_B_C = [x;y;.3048/2];
+r_B_R = r_B_C + TR*r_C_R;
+r_B_L = r_B_C + TL*r_C_L;
 
-r_I_1 = r_I_C + T1*r_C_1;
+r_B_1 = r_B_C + T1*r_C_1;
 
-r_I_2R = r_I_1 + T2R*r_1_2R;
-r_I_3R = r_I_2R + T3R*r_2R_3R;
-r_I_4R = r_I_3R + T4R*r_3R_4R;
-r_I_5R = r_I_4R + T5R*r_4R_5R;
-r_I_6R = r_I_5R + T6R*r_5R_6R;
+r_B_2R = r_B_1 + T2R*r_1_2R;
+r_B_3R = r_B_2R + T3R*r_2R_3R;
+r_B_4R = r_B_3R + T4R*r_3R_4R;
+r_B_5R = r_B_4R + T5R*r_4R_5R;
+r_B_6R = r_B_5R + T6R*r_5R_6R;
 
-r_I_2L = r_I_1 + T2L*r_1_2L;
-r_I_3L = r_I_2L + T3L*r_2L_3L;
-r_I_4L = r_I_3L + T4L*r_3L_4L;
-r_I_5L = r_I_4L + T5L*r_4L_5L;
-r_I_6L = r_I_5L + T6L*r_5L_6L;
+r_B_2L = r_B_1 + T2L*r_1_2L;
+r_B_3L = r_B_2L + T3L*r_2L_3L;
+r_B_4L = r_B_3L + T4L*r_3L_4L;
+r_B_5L = r_B_4L + T5L*r_4L_5L;
+r_B_6L = r_B_5L + T6L*r_5L_6L;
 
 %% STL building of the robot
-Chassis_v=repmat(r_I_C,1,length(Chassis))+ITC*Chassis';
-WheelR_v=repmat(r_I_R,1,length(WheelR))+TR*WheelR';
-WheelL_v=repmat(r_I_L,1,length(WheelL))+TL*WheelL';
+Chassis_v=repmat(r_B_C,1,length(Chassis))+BTC*Chassis';
+WheelR_v=repmat(r_B_R,1,length(WheelR))+TR*WheelR';
+WheelL_v=repmat(r_B_L,1,length(WheelL))+TL*WheelL';
 
-Link1_v=repmat(r_I_1,1,length(Link1))+T1*Link1';
+Link1_v=repmat(r_B_1,1,length(Link1))+T1*Link1';
 
-Link2R_v=repmat(r_I_2R,1,length(Link2R))+T2R*Link2R';
-Link3R_v=repmat(r_I_3R,1,length(Link3R))+T3R*Link3R';
-Link4R_v=repmat(r_I_4R,1,length(Link4R))+T4R*Link4R';
-Link5R_v=repmat(r_I_5R,1,length(Link5R))+T5R*Link5R';
-Link6R_v=repmat(r_I_6R,1,length(Link6R))+T6R*Link6R';
+Link2R_v=repmat(r_B_2R,1,length(Link2R))+T2R*Link2R';
+Link3R_v=repmat(r_B_3R,1,length(Link3R))+T3R*Link3R';
+Link4R_v=repmat(r_B_4R,1,length(Link4R))+T4R*Link4R';
+Link5R_v=repmat(r_B_5R,1,length(Link5R))+T5R*Link5R';
+Link6R_v=repmat(r_B_6R,1,length(Link6R))+T6R*Link6R';
 
-Link2L_v=repmat(r_I_2L,1,length(Link2L))+T2L*Link2L';
-Link3L_v=repmat(r_I_3L,1,length(Link3L))+T3L*Link3L';
-Link4L_v=repmat(r_I_4L,1,length(Link4L))+T4L*Link4L';
-Link5L_v=repmat(r_I_5L,1,length(Link5L))+T5L*Link5L';
-Link6L_v=repmat(r_I_6L,1,length(Link6L))+T6L*Link6L';
+Link2L_v=repmat(r_B_2L,1,length(Link2L))+T2L*Link2L';
+Link3L_v=repmat(r_B_3L,1,length(Link3L))+T3L*Link3L';
+Link4L_v=repmat(r_B_4L,1,length(Link4L))+T4L*Link4L';
+Link5L_v=repmat(r_B_5L,1,length(Link5L))+T5L*Link5L';
+Link6L_v=repmat(r_B_6L,1,length(Link6L))+T6L*Link6L';
 
 %% Patching the STL files
 patch('Faces',Chassis_f,'Vertices',Chassis_v','EdgeColor','None','FaceColor',[.792157 .819608 .933333]);

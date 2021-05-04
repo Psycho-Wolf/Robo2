@@ -1,7 +1,8 @@
 function bdot = mm_2021(b,F)
 
 bdot = zeros(16,1);
-gamma = b(1,
+gamma = b(1,16);
+dotgamma = b(17,32);
 
 x = gamma(1);
 y = gamma(2);
@@ -153,5 +154,73 @@ J6L = [ 0.00115148 0.00149053 0.00000000;
 Gam6L = m6L*r_6L_cm;
 r_6L_EL = [.1178;-.0508;0];
 
-%% Next step
-% 
+%% Robo Dynamics
+BTC = rotzRad(psi);
+
+TR = rotyRad(theta_R);
+TL = *rotyRad(theta_L);
+
+T1 = rotzRad(theta_1);
+T2R = rotyRad(theta_2R);
+T3R = rotxRad(theta_3R);
+T4R = rotyRad(theta_4R);
+T5R = rotyRad(theta_5R);
+T6R = rotyRad(theta_6R);
+
+T2L = rotyRad(theta_2L);
+T3L = rotxRad(theta_3L);
+T4L = rotyRad(theta_4L);
+T5L = rotyRad(theta_5L);
+T6L = rotyRad(theta_6L);
+
+%% Recursive
+
+[IT2R, twotwowIR,           dot_IIr2R,  Jac2R, dot_Jac2R] = recursive_kinematics(IT1,   oneonewI,       Jac1,   dot_Jac1,   oneT2R,     oneoner2R,      hat_I2R, tilda_I, dotgamma);
+[IT3R, threethreewIR,       dot_IIr3R,  Jac3R, dot_Jac3R] = recursive_kinematics(IT2R,  twotwowIR,      Jac2R,  dot_Jac2R,  twoT3R,     twotwor3R,      hat_I3R, tilda_I, dotgamma);
+[IT4R, fourfourwIR,         dot_IIr4R,  Jac4R, dot_Jac4R] = recursive_kinematics(IT3R,  threethreewIR,  Jac3R,  dot_Jac3R,  threeT4R,   threethreer4R,  hat_I4R, tilda_I, dotgamma);
+[IT5R, fivefivewIR,         dot_IIr5R,  Jac5R, dot_Jac5R] = recursive_kinematics(IT4R,  fourfourwIR,    Jac4R,  dot_Jac4R,  fourT5R,    fourfourr5R,    hat_I5R, tilda_I, dotgamma);
+[IT6R, sixsixwIR,           dot_IIr6R,  Jac6R, dot_Jac6R] = recursive_kinematics(IT5R,  fivefivewIR,    Jac5R,  dot_Jac5R,  fiveT6R,    fivefiver6R,    hat_I6R, tilda_I, dotgamma);
+[ITER, EEwIR,               dot_IIrER,  JacER, dot_JacER] = recursive_kinematics(IT5R,  fivefivewIR,    Jac5R,  dot_Jac5R,  fiveTER,    fivefiverER,    hat_IER, tilda_I, dotgamma);
+
+
+
+[IT2L, twotwowIL,           dot_IIr2L,  Jac2L, dot_Jac2L] = recursive_kinematics(IT1,   oneonewI,       Jac1,   dot_Jac1,   oneT2L,     oneoner2L,      hat_I2L, tilda_I, dotgamma);
+[IT3L, threethreewIL,       dot_IIr3L,  Jac3L, dot_Jac3L] = recursive_kinematics(IT2L,  twotwowIL,      Jac2L,  dot_Jac2L,  twoT3L,     twotwor3L,      hat_I3L, tilda_I, dotgamma);
+[IT4L, fourfourwIL,         dot_IIr4L,  Jac4L, dot_Jac4L] = recursive_kinematics(IT3L,  threethreewIL,  Jac3L,  dot_Jac3L,  threeT4L,   threethreer4L,  hat_I4L, tilda_I, dotgamma);
+[IT5L, fivefivewIL,         dot_IIr5L,  Jac5L, dot_Jac5L] = recursive_kinematics(IT4L,  fourfourwIL,    Jac4L,  dot_Jac4L,  fourT5L,    fourfourr5L,    hat_I5L, tilda_I, dotgamma);
+[IT6L, sixsixwIL,           dot_IIr6L,  Jac6L, dot_Jac6L] = recursive_kinematics(IT5L,  fivefivewIL,    Jac5L,  dot_Jac5L,  fiveT6L,    fivefiver6L,    hat_I6L, tilda_I, dotgamma);
+[ITEL, EEwIL,               dot_IIrEL,  JacEL, dot_JacEL] = recursive_kinematics(IT5L,  fivefivewIL,    Jac5L,  dot_Jac5L,  fiveTEL,    fivefiverEL,    hat_IEL, tilda_I, dotgamma);
+
+%% H Calculation
+
+H1 = (Jac1.' *  [J1,    skew(gam1)*IT1.';   IT1*skew(gam1).',       m1*eye(3)] * Jac1);
+H2 = (Jac2R.' * [J2R,   skew(gam2)*IT2R.';  IT2*skew(gam2R).',     m2R*eye(3)] * Jac2R);
+H3 = (Jac3R.' * [J3R,   skew(gam3)*IT3R.';  IT3*skew(gam3R).',     m3R*eye(3)] * Jac3R);
+H4 = (Jac4R.' * [J4R,   skew(gam4)*IT4R.';  IT4*skew(gam4R).',     m4R*eye(3)] * Jac4R);
+H5 = (Jac5R.' * [J5R,   skew(gam5)*IT5R.';  IT5*skew(gam5R).',     m5R*eye(3)] * Jac5R);
+H6 = (Jac6R.' * [J6R,   skew(gam6)*IT6R.';  IT6*skew(gam6R).',     m6R*eye(3)] * Jac6R);
+HE = (JacER.' * [JER,   skew(gamE)*ITER.';  ITE*skew(gamER).',     mER*eye(3)] * JacER);
+
+HRtot = H1R + H2R + H3R + H3R + H4R + H5R + H6R + HER;
+
+H1 = (Jac1.' *  [J1,    skew(gam1)*IT1.';   IT1*skew(gam1).',       m1*eye(3)] * Jac1);
+H2 = (Jac2L.' * [J2L,   skew(gam2)*IT2L.';  IT2*skew(gam2L).',     m2L*eye(3)] * Jac2L);
+H3 = (Jac3L.' * [J3L,   skew(gam3)*IT3L.';  IT3*skew(gam3L).',     m3L*eye(3)] * Jac3L);
+H4 = (Jac4L.' * [J4L,   skew(gam4)*IT4L.';  IT4*skew(gam4L).',     m4L*eye(3)] * Jac4L);
+H5 = (Jac5L.' * [J5L,   skew(gam5)*IT5L.';  IT5*skew(gam5L).',     m5L*eye(3)] * Jac5L);
+H6 = (Jac6L.' * [J6L,   skew(gam6)*IT6L.';  IT6*skew(gam6L).',     m6L*eye(3)] * Jac6L);
+HE = (JacEL.' * [JEL,   skew(gamE)*ITEL.';  ITE*skew(gamEL).',     mEL*eye(3)] * JacEL);
+
+HLtot = H1L + H2L + H3L + H3L + H4L + H5L + H6L + HEL;
+
+%% D Calculation
+
+d1 = Jac1.'     * [J1,  skew(gam1)*IT1.';   IT1*skew(gam1).',   m1*eye(3)]  * dot_Jac1  * dotgamma  + Jac1.'    * [cross(oneonewI,      (J1 * oneonewI));       IT1  * cross(oneonewI,      cross(oneonewI,gam1))];
+d2R = Jac2R.'   * [J2R, skew(gam2R)*IT2R.'; IT2R*skew(gam2R).', m2R*eye(3)] * dot_Jac2R * dotgamma  + Jac2R.'   * [cross(twotwowIR,     (J2R * twotwowIR));     IT2R * cross(twotwowIR,     cross(twotwowIR,gam2R))];
+d3R = Jac3R.'   * [J3R, skew(gam3R)*IT3R.'; IT3R*skew(gam3R).', m3R*eye(3)] * dot_Jac3R * dotgamma  + Jac3R.'   * [cross(threethreewIR, (J3R * threethreewIR)); IT3R * cross(threethreewIR, cross(threethreewIR,gam3R))];
+d4R = Jac4R.'   * [J4R, skew(gam4R)*IT4R.'; IT4R*skew(gam4R).', m4R*eye(3)] * dot_Jac4R * dotgamma  + Jac4R.'   * [cross(fourfourwIR,   (J4R * fourfourwIR));   IT4R * cross(fourfourwIR,   cross(fourfourwIR,gam4R))];
+d5R = Jac5R.'   * [J5R, skew(gam5R)*IT5R.'; IT5R*skew(gam5R).', m5R*eye(3)] * dot_Jac5R * dotgamma  + Jac5R.'   * [cross(fivefivewIR,   (J5R * fivefivewIR));   IT5R * cross(fivefivewIR,   cross(fivefivewIR,gam5R))];
+dER = JacER.'   * [JER, skew(gamER)*ITER.'; ITER*skew(gamER).', mER*eye(3)] * dot_JacER * dotgamma  + JacER.'   * [cross(EEwIR,         (JER * EEwIR));         ITER * cross(EEwIR,         cross(EEwIR,gamER))];
+
+dtot = d1 + d2 + d3 + d4 + d5 + dE;
+
