@@ -1,8 +1,7 @@
 function [bdot,M,n,G] = mm_2021(b,f)
 
 %% B    
-%     x = b(1);
-%     y = b(2);
+
     phi = b(3);
     thetaRW = b(4);
     thetaLW = b(5);
@@ -231,22 +230,22 @@ function [bdot,M,n,G] = mm_2021(b,f)
     IhLW(2,5) = 1;
     
     % LINK ONE
-    [IT1,onewI,~,J1,Jd1] = recursive_kinematics(ITC,CwI,geoC,geodotC,rotzRad(theta1),[-.1778000;.00129706;.2794],Ih1,in,gamma,gammadot);
+    [IT1,onewI,~,J1,Jd1] = recursive_kinematics(ITC,CwI,geoC,geodotC,rotzRad(theta1),[-.1778000;.00129706;.2794],Ih1,in,gammadot);
     % RECURSIVE RIGHT
-    [ITR2,R2wI,~,JR2,JdR2] = recursive_kinematics(IT1,onewI,J1,Jd1,oneTR2,oneonerR2,Ih2,in,gamma,gammadot);
-    [ITR3,R3wI,~,JR3,JdR3] = recursive_kinematics(ITR2,R2wI,JR2,JdR2,R2TR3,R2R2rR3,Ih3,in,gamma,gammadot);
-    [ITR4,R4wI,~,JR4,JdR4] = recursive_kinematics(ITR3,R3wI,JR3,JdR3,R3TR4,R3R3rR4,Ih4,in,gamma,gammadot);
-    [ITR5,R5wI,~,JR5,JdR5] = recursive_kinematics(ITR4,R4wI,JR4,JdR4,R4TR5,R4R4rR5,Ih5,in,gamma,gammadot);
-    [ITR6,R6wI,~,JR6,JdR6] = recursive_kinematics(ITR5,R5wI,JR5,JdR5,R5TR6,R5R5rR6,Ih6,in,gamma,gammadot);
+    [ITR2,R2wI,~,JR2,JdR2] = recursive_kinematics(IT1,onewI,J1,Jd1,oneTR2,oneonerR2,Ih2,in,gammadot);
+    [ITR3,R3wI,~,JR3,JdR3] = recursive_kinematics(ITR2,R2wI,JR2,JdR2,R2TR3,R2R2rR3,Ih3,in,gammadot);
+    [ITR4,R4wI,~,JR4,JdR4] = recursive_kinematics(ITR3,R3wI,JR3,JdR3,R3TR4,R3R3rR4,Ih4,in,gammadot);
+    [ITR5,R5wI,~,JR5,JdR5] = recursive_kinematics(ITR4,R4wI,JR4,JdR4,R4TR5,R4R4rR5,Ih5,in,gammadot);
+    [ITR6,R6wI,~,JR6,JdR6] = recursive_kinematics(ITR5,R5wI,JR5,JdR5,R5TR6,R5R5rR6,Ih6,in,gammadot);
     % RECURSIVE LEFT
-    [ITL2,L2wI,~,JL2,JdL2] = recursive_kinematics(IT1,onewI,J1,Jd1,oneTL2,oneonerL2,Ihl2,in,gamma,gammadot);
-    [ITL3,L3wI,~,JL3,JdL3] = recursive_kinematics(ITL2,L2wI,JL2,JdL2,L2TL3,L2L2rL3,Ihl3,in,gamma,gammadot);
-    [ITL4,L4wI,~,JL4,JdL4] = recursive_kinematics(ITL3,L3wI,JL3,JdL3,L3TL4,L3L3rL4,Ihl4,in,gamma,gammadot);
-    [ITL5,L5wI,~,JL5,JdL5] = recursive_kinematics(ITL4,L4wI,JL4,JdL4,L4TL5,L4L4rL5,Ihl5,in,gamma,gammadot);
-    [ITL6,L6wI,~,JL6,JdL6] = recursive_kinematics(ITL5,L5wI,JL5,JdL5,L5TL6,L5L5rL6,Ihl6,in,gamma,gammadot);
+    [ITL2,L2wI,~,JL2,JdL2] = recursive_kinematics(IT1,onewI,J1,Jd1,oneTL2,oneonerL2,Ihl2,in,gammadot);
+    [ITL3,L3wI,~,JL3,JdL3] = recursive_kinematics(ITL2,L2wI,JL2,JdL2,L2TL3,L2L2rL3,Ihl3,in,gammadot);
+    [ITL4,L4wI,~,JL4,JdL4] = recursive_kinematics(ITL3,L3wI,JL3,JdL3,L3TL4,L3L3rL4,Ihl4,in,gammadot);
+    [ITL5,L5wI,~,JL5,JdL5] = recursive_kinematics(ITL4,L4wI,JL4,JdL4,L4TL5,L4L4rL5,Ihl5,in,gammadot);
+    [ITL6,L6wI,~,JL6,JdL6] = recursive_kinematics(ITL5,L5wI,JL5,JdL5,L5TL6,L5L5rL6,Ihl6,in,gammadot);
     % WHEELS
-    [ITRW,RWwI,~,JRW,JdRW] = recursive_kinematics(ITC,CwI,geoC,geodotC,rotyRad(thetaRW),[0;-.3810;0],IhRW,in,gamma,gammadot);
-    [ITLW,LWwI,~,JLW,JdLW] = recursive_kinematics(ITC,CwI,geoC,geodotC,rotyRad(thetaLW),[0;.3810;0],IhLW,in,gamma,gammadot);
+    [ITRW,RWwI,~,JRW,JdRW] = recursive_kinematics(ITC,CwI,geoC,geodotC,rotyRad(thetaRW),[0;-.3810;0],IhRW,in,gammadot);
+    [ITLW,LWwI,~,JLW,JdLW] = recursive_kinematics(ITC,CwI,geoC,geodotC,rotyRad(thetaLW),[0;.3810;0],IhLW,in,gammadot);
    
     delf = [(381*cos(phi))/5000, (381*cos(phi))/5000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;...
             (381*sin(phi))/5000, (381*sin(phi))/5000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;...

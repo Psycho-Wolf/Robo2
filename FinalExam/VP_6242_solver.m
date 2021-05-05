@@ -34,6 +34,7 @@ for i=1:length(t)-1
  k4=VP_6242(b(:,i)+k3*h,F(:,i));
  b(:,i+1)=b(:,i)+h*(k1/6+k2/3+k3/3+k4/6);
 end
+
 %---Data Plotting---
 figure
 subplot(6,1,1)
@@ -60,6 +61,7 @@ subplot(6,1,6)
 plot(t,b(6,:))
 xlabel('t (s)')
 ylabel('\theta_6 (rad)')
+
 %---Animation---
 figure
 v=VideoWriter('VP_6242.avi'); %create a video object – this will be stored as dri_planar.avi
