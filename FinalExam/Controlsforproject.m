@@ -11,8 +11,11 @@ b1=zeros(29,length(t));
  
 %CAHNGE THESE TO REFLECT A SPECIFIC GAMMA VECTOR IN YOUR DRAW FUNCTION
 %MAKE SURE THAT THE FIRST FIVE ENTRIES INTO GAMMA ARE ZERO!!!
-IIrr6d = [-0.2257; 0.0326; 0.1961];
-IIrl6d = [-0.6979 0.1292 0.1081]';
+% IIrr6d = [-0.2257; 0.0326; 0.1961];
+% IIrl6d = [-0.6979 0.1292 0.1081]';
+
+IIrr6d = [-0.0516; -0.2011; 0.9088];
+IIrl6d = [.1701 0.3443 1.0104]';
 
 Kp = diag([0,0,0,23,45,22]);
 Kd = diag(3*[10,10,10,15,15,20]);
@@ -55,7 +58,7 @@ end
 figure
 subplot(3,1,1)
 plot(t,IIrr6(1,:),t,IIrr6d(1)*ones(1,length(t)))
-title('Computed Tordue Jacobian controller')
+title('Computed Torque Jacobian controller right side')
 xlabel('t (s)')
 ylabel('x (m)')
 subplot(3,1,2)
@@ -70,7 +73,7 @@ ylabel('Z (m)')
 figure
 subplot(3,1,1)
 plot(t,IIrl6(1,:),t,IIrl6d(1)*ones(1,length(t)))
-title('Computed Tordue Jacobian controller')
+title('Computed Torque Jacobian controller left side')
 xlabel('t (s)')
 ylabel('x (m)')
 subplot(3,1,2)
@@ -88,7 +91,7 @@ v=VideoWriter('mm_2021_controller.avi'); %create a video object – this will be
 set(v,'FrameRate',20); %set the frame rate to 20 FPS
 open(v); %open the video
 for i=1:round(1/(20*h)):length(t) %20 frames per second
- mm_2021_draw(b(:,i),1);
+ mm_2021_draw(b(:,i));
  drawnow
  frame=getframe(gcf); %store the current figure window as a frame
  writeVideo(v,frame); %write that frame to the video
