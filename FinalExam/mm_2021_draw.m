@@ -160,5 +160,5 @@ camlight left
 set(gca,'projection','perspective')
 view([1;1;.5])
 % view([0;0;1])
-% axis([-3 3 -3 3 0 3]);
+axis([-1.5 1.5 -1.5 1.5 0 1.5]);
 hold off;
