@@ -56,10 +56,10 @@ fprintf('Initializations complete\n');
 fprintf('Running Control loop...\n');
 
 %% Control Loop
-IIrEDR = [   .2;.2;.5];
-IIrEDL = [   .2;.2;.5];
+IIrEDR = [   -.2257;.0326;.1961];
+IIrEDL = [   -.6979;.1292;.1081];
 
-Kp=350; %proportional gain
+Kp=75; %proportional gain
 Kd=15; %derivative gain
 % IIrE=zeros(3,length(t));
 
@@ -70,29 +70,31 @@ T_last=-Ts;
 
 IIrE = zeros(6,length(t));
 for i=1:length(t)-1
-%     IIrE(:,i) = mm_2021_FK(b);
-%     if t(i)-T_last>=Ts
-%         [~,~,~,G,JER,JEdotR,JEL,JEdotL]=mm_2021(b(:,i),0);
-% 
-%         dotIIrER = JER(4:6,6:11) * b(19:24,i);
-%         JER = JER(1:6,6:11);
-%         FR=JER.'*(Kp*[0;0;0;IIrEDR - IIrE(1:3,i)] + Kd*[0;0;0; -dotIIrER]) + G(3:8);
-% 
-%         dotIIrEL = JEL(4:6,12:16) * b(25:29,i);
-%         JEL = JEL(1:6,12:16);       
-%         FL=JEL.'*(Kp*[0;0;0;IIrEDL - IIrE(1:3,i)] + Kd*[0;0;0; -dotIIrEL]) + G(9:13);     
-%         
+    IIrE(:,i) = mm_2021_FK(b);
+    if t(i)-T_last>=Ts
+        [~,~,~,G,JER,JEdotR,JEL,JEdotL]=mm_2021(b(:,i),0);
+
+        dotIIrER = JER(4:6,6:11) * b(19:24,i);
+        JER = JER(1:6,6:11);
+        FR=JER.'*(Kp*[0;0;0;IIrEDR - IIrE(1:3,i)] + Kd*[0;0;0; -dotIIrER]) + G(3:8);
+
+        dotIIrEL = JEL(4:6,12:16) * b(25:29,i);
+        JEL = JEL(1:6,12:16);       
+        FL=JEL.'*(Kp*[0;0;0;IIrEDL - IIrE(4:6,i)] + Kd*[0;0;0; -dotIIrEL]) + G(9:13);     
+        
+        T_last=t(i); 
+    end
+
+        % Hunter and Robbie
+%         IIrE(:,i) = mm_2021_FK(b);
+%         [M,n,G,JER,JEdotR,JEL,JEdotL,delf,gammadot] = mm_2021_prop(b);
+%     
+%         if mod(i,2) == 1
+%             F = M*((delf.'*JER.')*(Kp*[0;0;0;IIrEDR - IIrE(1:3,i)] * Kd*[0;0;0; -dotIIrER] - JEdotR*gammadot)) -G + n;
+%         else
+%             F = M*((delf.'*JEL.')*(Kp*[0;0;0;IIrEDL - IIrE(1:3,i)] * Kd*[0;0;0; -dotIIrEL] - JEdotL*gammadot)) -G + n;
+%         end
 %         T_last=t(i);
-%     end
-        IIrE(:,i) = mm_2021_FK(b);
-        [M,n,G,JER,JEdotR,JEL,JEdotL,delf,gammadot] = mm_2021_prop(b);
-    
-        if mod(i,2) == 1
-            F = M*((delf.'*JER.')*(Kp*[0;0;0;IIrEDR - IIrE(1:3,i)] * Kd*[0;0;0; -dotIIrER] - JEdotR*gammadot)) -G + n;
-        else
-            F = M*((delf.'*JEL.')*(Kp*[0;0;0;IIrEDL - IIrE(1:3,i)] * Kd*[0;0;0; -dotIIrEL] - JEdotL*gammadot)) -G + n;
-        end
-        T_last=t(i);
        
     f(3:8,i) = FR;
     f(9:13,i) = FL;

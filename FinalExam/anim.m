@@ -1,5 +1,5 @@
 figure
-v=VideoWriter('mm_2021.avi'); %create a video object – this will be stored as dri_planar.avi
+v=VideoWriter('mm_2021.mp4'); %create a video object – this will be stored as dri_planar.avi
 set(v,'FrameRate',20); %set the frame rate to 20 FPS
 open(v); %open the video
 for i=1:round(1/(20*h)):length(t) %20 frames per second

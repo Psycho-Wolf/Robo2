@@ -1,4 +1,4 @@
-function posRL = mm_2021_FK(b)
+function [r_B_ER,r_B_EL] = mm_2021_FK(b)
 x = b(1);
 y = b(2);
 psi = b(3);
@@ -75,5 +75,4 @@ r_B_5L = r_B_4L + T4L*r_4L_5L;
 r_B_6L = r_B_5L + T5L*r_5L_6L;
 r_B_EL = r_B_6L + T6L*r_6L_EL;
 
-posRL = [r_B_ER;r_B_EL];
 
